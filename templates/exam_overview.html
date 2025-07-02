@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <h2 style="color: #ffffff; margin-bottom: 20px; text-align: center; font-weight: 600;">
+        📋 Examen Final - Español UNAM Nivel 5
+    </h2>
+    
+    <div style="text-align: center; margin-bottom: 30px;">
+        <p style="font-size: 1.2em; color: #e0e0e0; margin-bottom: 20px; font-weight: 300;">
+            Estructura oficial del examen basada en el programa UNAM Polanco
+        </p>
+    </div>
+
+    <div style="background: rgba(0, 0, 0, 0.3); padding: 25px; border-radius: 15px; margin: 20px 0; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 8px 20px rgba(206, 17, 38, 0.3);">
+        <h3 style="color: #ffffff; margin-bottom: 20px; text-align: center; font-weight: 500;">
+            📚 Secciones del Examen
+        </h3>
+        
+        <div style="display: grid; gap: 15px; max-width: 800px; margin: 0 auto;">
+            {% for section in sections %}
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s ease;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="flex: 1;">
+                        <h4 style="color: #ffffff; margin: 0 0 5px 0; font-weight: 600;">
+                            Sección {{ section.section_number }}: {{ section.section_name }}
+                        </h4>
+                        {% if section.description %}
+                        <p style="color: #b0b0b0; margin: 5px 0; font-size: 0.9em;">
+                            {{ section.description }}
+                        </p>
+                        {% endif %}
+                    </div>
+                    <div style="text-align: right; display: flex; gap: 10px; align-items: center;">
+                        <span style="background: rgba(0, 100, 0, 0.2); color: #00d084; padding: 6px 12px; border-radius: 15px; font-weight: 500; border: 1px solid rgba(0, 150, 0, 0.3); font-size: 0.8em;">
+                            {{ section.points }} pts
+                        </span>
+                        <span style="background: rgba(206, 17, 38, 0.2); color: #ce1126; padding: 8px 15px; border-radius: 20px; font-weight: 500; border: 1px solid rgba(206, 17, 38, 0.3);">
+                            {{ section.question_count }} preguntas
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div style="background: rgba(0, 100, 0, 0.1); padding: 20px; border-radius: 10px; margin: 20px 0; border: 1px solid rgba(0, 150, 0, 0.3);">
+        <h4 style="color: #00d084; margin-bottom: 15px; text-align: center; font-weight: 500;">
+            ✅ Instrucciones Importantes
+        </h4>
+        <ul style="color: #e0e0e0; line-height: 1.6; list-style: none; padding: 0;">
+            <li style="margin: 10px 0; padding-left: 25px; position: relative;">
+                <span style="position: absolute; left: 0; color: #00d084;">•</span>
+                Las preguntas se generan dinámicamente basadas en conceptos gramaticales
+            </li>
+            <li style="margin: 10px 0; padding-left: 25px; position: relative;">
+                <span style="position: absolute; left: 0; color: #00d084;">•</span>
+                Recibirás retroalimentación inmediata después de cada respuesta
+            </li>
+            <li style="margin: 10px 0; padding-left: 25px; position: relative;">
+                <span style="position: absolute; left: 0; color: #00d084;">•</span>
+                Puedes navegar entre páginas dentro de cada sección
+            </li>
+            <li style="margin: 10px 0; padding-left: 25px; position: relative;">
+                <span style="position: absolute; left: 0; color: #00d084;">•</span>
+                El examen incluye vocabulario y expresiones mexicanas auténticas
+            </li>
+            <li style="margin: 10px 0; padding-left: 25px; position: relative;">
+                <span style="position: absolute; left: 0; color: #00d084;">•</span>
+                Al final recibirás tu calificación completa con análisis detallado
+            </li>
+        </ul>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="/start_exam" class="btn" style="font-size: 1.4em; padding: 20px 50px; background: linear-gradient(135deg, #ce1126, #006847); border: none; color: white; text-decoration: none; border-radius: 50px; display: inline-block; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(206, 17, 38, 0.4), 0 0 20px rgba(0, 104, 71, 0.3);">
+            🚀 Comenzar Examen
+        </a>
+        
+        <div style="margin-top: 20px;">
+            <a href="/" style="color: #b0b0b0; text-decoration: none; font-size: 0.9em; transition: color 0.3s ease;">
+                ← Volver al inicio
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(206, 17, 38, 0.5), 0 0 25px rgba(0, 104, 71, 0.4) !important;
+}
+</style>
+{% endblock %}

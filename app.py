@@ -907,9 +907,30 @@ generator = WebQuestionGenerator()
 def index():
     return render_template('index.html')
 
+@app.route('/audio')
+def audio():
+    """Show audio examples page"""
+    return render_template('audio.html')
+
 @app.route('/exam')
 def exam():
-    """Start a new sectioned exam"""
+    """Show exam overview page with table of contents"""
+    # Use the EXAM_SECTIONS structure directly for overview
+    section_info = []
+    for section_key, section_data in EXAM_SECTIONS.items():
+        section_info.append({
+            'section_number': section_key,
+            'section_name': section_data['title'],
+            'question_count': section_data['total_questions'],
+            'description': section_data['description'],
+            'points': section_data['points']
+        })
+    
+    return render_template('exam_overview.html', sections=section_info)
+
+@app.route('/start_exam')
+def start_exam():
+    """Initialize and start the actual exam"""
     # Generate full exam with all sections
     exam_sections = generator.generate_full_exam()
     
