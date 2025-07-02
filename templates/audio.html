@@ -8,48 +8,108 @@
     
     <div style="text-align: center; margin-bottom: 30px;">
         <p style="font-size: 1.2em; color: #e0e0e0; margin-bottom: 20px; font-weight: 300;">
-            Ejemplos de audio y ejercicios de comprensión oral
+            Ejercicios de comprensión auditiva basados en texto - Nivel 5 UNAM
+        </p>
+        <p style="color: #b0b0b0; font-size: 0.9em;">
+            Lee el texto del "audio" y responde las preguntas
         </p>
     </div>
 
-    <div style="display: grid; gap: 20px; max-width: 800px; margin: 0 auto;">
-        <!-- Section 1: Basic Conversations -->
-        <div style="background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1);">
-            <h3 style="color: #ffffff; margin-bottom: 15px;">📱 Conversaciones Básicas</h3>
-            <div style="margin-bottom: 20px;">
-                <h4 style="color: #00d084; margin-bottom: 10px;">En el Restaurante</h4>
-                <audio controls style="width: 100%; margin-bottom: 10px;">
-                    <source src="/static/audio/restaurant.mp3" type="audio/mpeg">
-                    Tu navegador no soporta el elemento de audio.
-                </audio>
-                <p style="color: #b0b0b0; font-size: 0.9em;">Una conversación típica en un restaurante mexicano</p>
+    <!-- Audio Comprehension Exercise -->
+    <div style="background: rgba(0, 0, 0, 0.3); padding: 25px; border-radius: 15px; margin: 20px 0; border: 1px solid rgba(255, 255, 255, 0.1); max-width: 800px; margin: 0 auto 30px auto;">
+        <h3 style="color: #ce1126; margin-bottom: 20px; text-align: center;">🎧 Comprensión Auditiva</h3>
+        
+        <!-- Audio Script -->
+        <div style="background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 10px; margin-bottom: 25px; border-left: 4px solid #00d084;">
+            <h4 style="color: #00d084; margin-bottom: 15px;">📻 Transcripción del Audio:</h4>
+            <p style="color: #e0e0e0; font-style: italic; line-height: 1.6; font-size: 1.1em;">
+                "El sábado pasado se llevó a cabo un reto gastronómico muy especial en la UNAM Polanco. 
+                Los estudiantes de Nivel 5 participaron en un concurso de cocina fusión donde tenían que 
+                crear un platillo que combinara ingredientes tradicionales mexicanos con técnicas 
+                internacionales. El ingrediente principal era el maíz, específicamente el maíz azul 
+                originario de México. La creación ganadora fue el 'ramen elote azul', una innovadora 
+                combinación de ramen japonés con elote mexicano. Los estudiantes ya habían subido 
+                historias a sus redes sociales documentando todo el proceso antes del evento."
+            </p>
+        </div>
+
+        <!-- Questions -->
+        <div style="display: grid; gap: 20px;">
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 10px;">
+                <h4 style="color: #ffffff; margin-bottom: 15px;">Pregunta 1:</h4>
+                <p style="color: #e0e0e0; margin-bottom: 15px; font-size: 1.1em;">
+                    ¿Dónde se llevó a cabo el reto gastronómico mencionado en el audio?
+                </p>
+                <input type="text" id="audio1" placeholder="Escribe tu respuesta aquí..." 
+                       style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.3); background: rgba(0, 0, 0, 0.3); color: #ffffff; font-size: 1em;">
+                <div id="feedback1" style="margin-top: 10px; display: none;"></div>
+                <button onclick="checkAudioAnswer(1, 'UNAM Polanco')" 
+                        style="margin-top: 10px; padding: 8px 16px; background: #006847; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    Verificar Respuesta
+                </button>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 10px;">
+                <h4 style="color: #ffffff; margin-bottom: 15px;">Pregunta 2:</h4>
+                <p style="color: #e0e0e0; margin-bottom: 15px; font-size: 1.1em;">
+                    ¿Cuál fue el ingrediente principal del plato ganador?
+                </p>
+                <input type="text" id="audio2" placeholder="Escribe tu respuesta aquí..." 
+                       style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.3); background: rgba(0, 0, 0, 0.3); color: #ffffff; font-size: 1em;">
+                <div id="feedback2" style="margin-top: 10px; display: none;"></div>
+                <button onclick="checkAudioAnswer(2, 'maíz')" 
+                        style="margin-top: 10px; padding: 8px 16px; background: #006847; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    Verificar Respuesta
+                </button>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 10px;">
+                <h4 style="color: #ffffff; margin-bottom: 15px;">Pregunta 3:</h4>
+                <p style="color: #e0e0e0; margin-bottom: 15px; font-size: 1.1em;">
+                    ¿Cómo se llamaba la creación ganadora?
+                </p>
+                <input type="text" id="audio3" placeholder="Escribe tu respuesta aquí..." 
+                       style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.3); background: rgba(0, 0, 0, 0.3); color: #ffffff; font-size: 1em;">
+                <div id="feedback3" style="margin-top: 10px; display: none;"></div>
+                <button onclick="checkAudioAnswer(3, 'ramen elote azul')" 
+                        style="margin-top: 10px; padding: 8px 16px; background: #006847; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    Verificar Respuesta
+                </button>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 10px;">
+                <h4 style="color: #ffffff; margin-bottom: 15px;">Pregunta 4:</h4>
+                <p style="color: #e0e0e0; margin-bottom: 15px; font-size: 1.1em;">
+                    ¿Quiénes participaron en el concurso?
+                </p>
+                <input type="text" id="audio4" placeholder="Escribe tu respuesta aquí..." 
+                       style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.3); background: rgba(0, 0, 0, 0.3); color: #ffffff; font-size: 1em;">
+                <div id="feedback4" style="margin-top: 10px; display: none;"></div>
+                <button onclick="checkAudioAnswer(4, 'estudiantes Nivel 5')" 
+                        style="margin-top: 10px; padding: 8px 16px; background: #006847; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    Verificar Respuesta
+                </button>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 10px;">
+                <h4 style="color: #ffffff; margin-bottom: 15px;">Pregunta 5:</h4>
+                <p style="color: #e0e0e0; margin-bottom: 15px; font-size: 1.1em;">
+                    ¿Qué habían hecho los estudiantes antes del evento?
+                </p>
+                <input type="text" id="audio5" placeholder="Escribe tu respuesta aquí..." 
+                       style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.3); background: rgba(0, 0, 0, 0.3); color: #ffffff; font-size: 1em;">
+                <div id="feedback5" style="margin-top: 10px; display: none;"></div>
+                <button onclick="checkAudioAnswer(5, 'ya habían subido historias')" 
+                        style="margin-top: 10px; padding: 8px 16px; background: #006847; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    Verificar Respuesta
+                </button>
             </div>
         </div>
 
-        <!-- Section 2: Intermediate Dialogues -->
-        <div style="background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1);">
-            <h3 style="color: #ffffff; margin-bottom: 15px;">🗣️ Diálogos Intermedios</h3>
-            <div style="margin-bottom: 20px;">
-                <h4 style="color: #00d084; margin-bottom: 10px;">En la Universidad</h4>
-                <audio controls style="width: 100%; margin-bottom: 10px;">
-                    <source src="/static/audio/university.mp3" type="audio/mpeg">
-                    Tu navegador no soporta el elemento de audio.
-                </audio>
-                <p style="color: #b0b0b0; font-size: 0.9em;">Estudiantes discutiendo sobre sus clases</p>
-            </div>
-        </div>
-
-        <!-- Section 3: Advanced Conversations -->
-        <div style="background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1);">
-            <h3 style="color: #ffffff; margin-bottom: 15px;">🎭 Conversaciones Avanzadas</h3>
-            <div style="margin-bottom: 20px;">
-                <h4 style="color: #00d084; margin-bottom: 10px;">Debate Cultural</h4>
-                <audio controls style="width: 100%; margin-bottom: 10px;">
-                    <source src="/static/audio/debate.mp3" type="audio/mpeg">
-                    Tu navegador no soporta el elemento de audio.
-                </audio>
-                <p style="color: #b0b0b0; font-size: 0.9em;">Discusión sobre tradiciones mexicanas</p>
-            </div>
+        <!-- Score Display -->
+        <div id="scoreDisplay" style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(0, 104, 71, 0.1); border-radius: 10px; border: 1px solid rgba(0, 104, 71, 0.3); display: none;">
+            <h3 style="color: #00d084; margin-bottom: 10px;">🏆 Puntuación</h3>
+            <p id="scoreText" style="color: #ffffff; font-size: 1.2em; font-weight: 500;"></p>
         </div>
     </div>
 
@@ -72,5 +132,97 @@ audio::-webkit-media-controls-current-time-display,
 audio::-webkit-media-controls-time-remaining-display {
     color: #ffffff;
 }
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #00d084;
+    box-shadow: 0 0 10px rgba(0, 208, 132, 0.3);
+}
+
+button:hover {
+    background: #004d35 !important;
+    transform: translateY(-1px);
+}
+
+.correct {
+    background: rgba(0, 208, 132, 0.2) !important;
+    border: 1px solid #00d084 !important;
+    color: #00d084 !important;
+}
+
+.incorrect {
+    background: rgba(206, 17, 38, 0.2) !important;
+    border: 1px solid #ce1126 !important;
+    color: #ce1126 !important;
+}
 </style>
+
+<script>
+let audioScore = 0;
+let totalQuestions = 5;
+let answered = [];
+
+function normalizeText(text) {
+    return text.toLowerCase()
+        .replace(/[áàäâ]/g, 'a')
+        .replace(/[éèëê]/g, 'e')
+        .replace(/[íìïî]/g, 'i')
+        .replace(/[óòöô]/g, 'o')
+        .replace(/[úùüû]/g, 'u')
+        .replace(/[ñ]/g, 'n')
+        .trim();
+}
+
+function checkAudioAnswer(questionNum, correctAnswer) {
+    const userInput = document.getElementById(`audio${questionNum}`);
+    const feedback = document.getElementById(`feedback${questionNum}`);
+    const userAnswer = normalizeText(userInput.value);
+    const correct = normalizeText(correctAnswer);
+    
+    // Don't allow re-answering
+    if (answered.includes(questionNum)) {
+        return;
+    }
+    
+    const isCorrect = userAnswer.includes(correct) || correct.includes(userAnswer);
+    
+    if (isCorrect) {
+        feedback.innerHTML = `<p style="color: #00d084; font-weight: 500;">✅ ¡Correcto! "${correctAnswer}"</p>`;
+        userInput.classList.add('correct');
+        audioScore++;
+    } else {
+        feedback.innerHTML = `<p style="color: #ce1126; font-weight: 500;">❌ Incorrecto. La respuesta correcta es: "${correctAnswer}"</p>`;
+        userInput.classList.add('incorrect');
+    }
+    
+    feedback.style.display = 'block';
+    userInput.disabled = true;
+    answered.push(questionNum);
+    
+    // Update score display
+    updateAudioScore();
+}
+
+function updateAudioScore() {
+    const scoreDisplay = document.getElementById('scoreDisplay');
+    const scoreText = document.getElementById('scoreText');
+    
+    if (answered.length === totalQuestions) {
+        const percentage = Math.round((audioScore / totalQuestions) * 100);
+        scoreText.textContent = `${audioScore}/${totalQuestions} (${percentage}%)`;
+        scoreDisplay.style.display = 'block';
+        
+        // Add completion message
+        let message = '';
+        if (percentage >= 80) {
+            message = ' - ¡Excelente comprensión auditiva!';
+        } else if (percentage >= 60) {
+            message = ' - Buen trabajo, sigue practicando.';
+        } else {
+            message = ' - Necesitas más práctica con comprensión auditiva.';
+        }
+        scoreText.textContent += message;
+    }
+}
+</script>
 {% endblock %}

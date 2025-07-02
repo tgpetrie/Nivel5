@@ -1315,5 +1315,10 @@ def working_exam():
     """Route for the working exam based on CLAVE_UNAM_Final.md"""
     return render_template('working_exam.html')
 
+@app.route('/chilango')
+def chilango_guide():
+    """Route for the Chilango slang guide - Mexican Spanish expressions only"""
+    return render_template('chilango.html')
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5002)
