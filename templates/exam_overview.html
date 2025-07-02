@@ -17,30 +17,32 @@
             📚 Secciones del Examen
         </h3>
         
-        <div style="display: grid; gap: 15px; max-width: 800px; margin: 0 auto;">
+        <div class="exam-sections" style="display: grid; gap: 15px; max-width: 800px; margin: 0 auto;">
             {% for section in sections %}
-            <div style="background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s ease;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div style="flex: 1;">
-                        <h4 style="color: #ffffff; margin: 0 0 5px 0; font-weight: 600;">
-                            Sección {{ section.section_number }}: {{ section.section_name }}
-                        </h4>
-                        {% if section.description %}
-                        <p style="color: #b0b0b0; margin: 5px 0; font-size: 0.9em;">
-                            {{ section.description }}
-                        </p>
-                        {% endif %}
-                    </div>
-                    <div style="text-align: right; display: flex; gap: 10px; align-items: center;">
-                        <span style="background: rgba(0, 100, 0, 0.2); color: #00d084; padding: 6px 12px; border-radius: 15px; font-weight: 500; border: 1px solid rgba(0, 150, 0, 0.3); font-size: 0.8em;">
-                            {{ section.points }} pts
-                        </span>
-                        <span style="background: rgba(206, 17, 38, 0.2); color: #ce1126; padding: 8px 15px; border-radius: 20px; font-weight: 500; border: 1px solid rgba(206, 17, 38, 0.3);">
-                            {{ section.question_count }} preguntas
-                        </span>
+            <a href="/exam_section/{{ loop.index0 }}/0" style="text-decoration: none;">
+                <div class="exam-section-card" style="background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s ease;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="flex: 1;">
+                            <h4 style="color: #ffffff; margin: 0 0 5px 0; font-weight: 600;">
+                                Sección {{ section.section_number }}: {{ section.section_name }}
+                            </h4>
+                            {% if section.description %}
+                            <p style="color: #b0b0b0; margin: 5px 0; font-size: 0.9em;">
+                                {{ section.description }}
+                            </p>
+                            {% endif %}
+                        </div>
+                        <div style="text-align: right; display: flex; gap: 10px; align-items: center;">
+                            <span style="background: rgba(0, 100, 0, 0.2); color: #00d084; padding: 6px 12px; border-radius: 15px; font-weight: 500; border: 1px solid rgba(0, 150, 0, 0.3); font-size: 0.8em;">
+                                {{ section.points }} pts
+                            </span>
+                            <span style="background: rgba(206, 17, 38, 0.2); color: #ce1126; padding: 8px 15px; border-radius: 20px; font-weight: 500; border: 1px solid rgba(206, 17, 38, 0.3);">
+                                {{ section.question_count }} preguntas
+                            </span>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
             {% endfor %}
         </div>
     </div>
@@ -90,6 +92,12 @@
 .btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 30px rgba(206, 17, 38, 0.5), 0 0 25px rgba(0, 104, 71, 0.4) !important;
+}
+
+.exam-section-card:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 4px 24px rgba(206,17,38,0.13);
+    transform: translateY(-2px);
 }
 </style>
 {% endblock %}
