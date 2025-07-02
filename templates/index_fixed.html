@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <h2 style="color: #ffffff; margin-bottom: 20px; text-align: center; font-weight: 600;">
+        ¡Bienvenido al Examen Dinámico de Español 5!
+    </h2>
+    
+    <div style="text-align: center; margin-bottom: 30px;">
+        <p style="font-size: 1.2em; color: #e0e0e0; margin-bottom: 20px; font-weight: 300;">
+            Este examen genera preguntas nuevas cada vez, basadas en conceptos gramaticales del español mexicano.
+        </p>
+        
+        <div style="background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 10px; margin: 20px 0; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 8px 20px rgba(206, 17, 38, 0.2);">
+            <h3 style="color: #ffffff; margin-bottom: 15px; font-weight: 500;">Conceptos que se evalúan:</h3>
+            <ul style="list-style: none; text-align: left; max-width: 500px; margin: 0 auto;">
+                <li style="margin: 8px 0; padding: 8px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.2); color: #e0e0e0;">
+                    <span style="color: #ce1126; text-shadow: 0 0 8px rgba(206, 17, 38, 0.6), 0 0 15px rgba(206, 17, 38, 0.4); font-size: 1.1em;">♦</span> <a href="/concept/antepresente" class="concept-link">
+                        <strong>Antepresente</strong>
+                    </a> - He comido, has visitado...
+                </li>
+                <li style="margin: 8px 0; padding: 8px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.2); color: #e0e0e0;">
+                    <span style="color: #ce1126; text-shadow: 0 0 8px rgba(206, 17, 38, 0.6), 0 0 15px rgba(206, 17, 38, 0.4); font-size: 1.1em;">♦</span> <a href="/concept/antecopreterito" class="concept-link">
+                        <strong>Antecopretérito</strong>
+                    </a> - Había llegado, habías comido...
+                </li>
+                <li style="margin: 8px 0; padding: 8px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.2); color: #e0e0e0;">
+                    <span style="color: #ce1126; text-shadow: 0 0 8px rgba(206, 17, 38, 0.6), 0 0 15px rgba(206, 17, 38, 0.4); font-size: 1.1em;">♦</span> <a href="/concept/lo_adjetivo" class="concept-link">
+                        <strong>"Lo + adjetivo"</strong>
+                    </a> - Lo bueno de México es...
+                </li>
+                <li style="margin: 8px 0; padding: 8px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.2); color: #e0e0e0;">
+                    <span style="color: #ce1126; text-shadow: 0 0 8px rgba(206, 17, 38, 0.6), 0 0 15px rgba(206, 17, 38, 0.4); font-size: 1.1em;">♦</span> <a href="/concept/subjuntivo_percepcion" class="concept-link">
+                        <strong>Subjuntivo de percepción</strong>
+                    </a> - Veo que... / No veo que...
+                </li>
+                <li style="margin: 8px 0; padding: 8px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.2); color: #e0e0e0;">
+                    <span style="color: #ce1126; text-shadow: 0 0 8px rgba(206, 17, 38, 0.6), 0 0 15px rgba(206, 17, 38, 0.4); font-size: 1.1em;">♦</span> <a href="/concept/subjuntivo_opinion" class="concept-link">
+                        <strong>Subjuntivo de opinión</strong>
+                    </a> - Creo que... / No creo que...
+                </li>
+                <li style="margin: 8px 0; padding: 8px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.2); color: #e0e0e0;">
+                    <span style="color: #ce1126; text-shadow: 0 0 8px rgba(206, 17, 38, 0.6), 0 0 15px rgba(206, 17, 38, 0.4); font-size: 1.1em;">♦</span> <a href="/concept/condicional" class="concept-link">
+                        <strong>Condicional</strong>
+                    </a> - Si tuviera dinero, compraría...
+                </li>
+                <li style="margin: 8px 0; padding: 8px 0; color: #e0e0e0;">
+                    <span style="color: #ce1126; text-shadow: 0 0 8px rgba(206, 17, 38, 0.6), 0 0 15px rgba(206, 17, 38, 0.4); font-size: 1.1em;">♦</span> <a href="/concept/temporal_clauses" class="concept-link">
+                        <strong>Cláusulas temporales</strong>
+                    </a> - Cuando llegues, en cuanto termines...
+                </li>
+            </ul>
+        </div>
+        
+        <a href="https://www.reddit.com/r/asklatinamerica/comments/pfcc26/omg_i_need_help_with_mexican_slang/" target="_blank" style="text-decoration: none;">
+            <div class="info-box" style="cursor: pointer; transition: all 0.3s ease;">
+                <p style="color: #ffffff; font-weight: 600;">
+                    ¡Con vocabulario y expresiones mexicanas auténticas! 🇲🇽
+                </p>
+                <p style="color: #e0e0e0; margin-top: 10px; font-weight: 300;">
+                    Nombres como Lupita y Paco, lugares como el Zócalo y Xochimilco, 
+                    comida como pozole y chilaquiles, y expresiones como "¡Órale!" y "¡Qué padre!"
+                    <br><br>
+                    <span style="color: #00d084; font-weight: 500;">👆 Haz clic para explorar más jerga mexicana →</span>
+                </p>
+            </div>
+        </a>
+        
+        <div class="info-box">
+            <p style="color: #ffffff; font-weight: 600;">
+                📚 Comprensión Auditiva
+            </p>
+            <p style="color: #e0e0e0; margin-top: 10px; font-weight: 300;">
+                Para práctica de comprensión auditiva, consulta tu libro de texto UNAM Polanco Nivel 5.
+                Este examen se enfoca en gramática, vocabulario y producción escrita.
+            </p>
+        </div>
+    </div>
+    
+    <div style="text-align: center;">
+        <a href="/exam" class="btn" style="font-size: 1.3em; padding: 20px 40px;">
+            Comenzar Examen
+        </a>
+        
+        <div style="margin-top: 20px;">
+            <p style="color: #b0b0b0; font-size: 0.9em; font-weight: 300;">
+                <strong>Estructura del Examen:</strong><br>
+                • Gramática objetiva (opción múltiple / completar)<br>
+                • Conceptos del programa UNAM Polanco Nivel 5<br>
+                • Calificación automática con explicaciones<br>
+                • Basado en el examen final oficial
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h3 style="color: #ffffff; text-align: center; margin-bottom: 15px; font-weight: 500;">
+        Características del Examen Dinámico
+    </h3>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+        <div style="text-align: center; padding: 15px;">
+            <h4 style="color: #ffffff; font-weight: 500;">Preguntas Nuevas</h4>
+            <p style="color: #e0e0e0; font-size: 0.9em; font-weight: 300;">
+                Cada examen genera preguntas completamente nuevas
+            </p>
+        </div>
+        
+        <div style="text-align: center; padding: 15px;">
+            <h4 style="color: #ffffff; font-weight: 500;">Español Mexicano</h4>
+            <p style="color: #e0e0e0; font-size: 0.9em; font-weight: 300;">
+                Vocabulario y expresiones auténticas de México
+            </p>
+        </div>
+        
+        <div style="text-align: center; padding: 15px;">
+            <h4 style="color: #ffffff; font-weight: 500;">Retroalimentación</h4>
+            <p style="color: #e0e0e0; font-size: 0.9em; font-weight: 300;">
+                Corrección inmediata con explicaciones
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

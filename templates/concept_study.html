@@ -1,0 +1,380 @@
+{% extends "base.html" %}
+
+{% block title %}{{ concept_info.title }} - Español 5{% endblock %}
+
+{% block extra_css %}
+<style>
+    .concept-header {
+        background: linear-gradient(135deg, #006847 0%, #008a5a 100%);
+        color: white;
+        padding: 25px;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        text-align: center;
+        font-family: 'Raleway', sans-serif;
+        box-shadow: 0 10px 30px rgba(0, 104, 71, 0.4), 0 5px 15px rgba(206, 17, 38, 0.3);
+        transition: all 0.3s ease;
+        transform: translateZ(0);
+    }
+
+    .concept-header:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(0, 104, 71, 0.5), 0 8px 20px rgba(206, 17, 38, 0.4);
+    }
+
+    .concept-info {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 25px;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 25px rgba(206, 17, 38, 0.2);
+        transition: all 0.3s ease;
+        transform: translateZ(0);
+    }
+
+    .concept-info:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 35px rgba(206, 17, 38, 0.3);
+    }
+
+    .examples-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .examples-list li {
+        background: rgba(0, 104, 71, 0.2);
+        margin: 10px 0;
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 4px solid #006847;
+        color: #ffffff;
+        font-style: italic;
+    }
+
+    .practice-section {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 25px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .practice-question {
+        background: rgba(0, 0, 0, 0.4);
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .practice-input {
+        width: 100%;
+        padding: 12px;
+        font-size: 1.1em;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.3);
+        color: #ffffff;
+        font-family: 'Raleway', sans-serif;
+        margin: 10px 0;
+    }
+
+    .practice-input::placeholder {
+        color: #b0b0b0;
+    }
+
+    .practice-input:focus {
+        outline: none;
+        border-color: #006847;
+        box-shadow: 0 0 10px rgba(0, 104, 71, 0.3);
+    }
+
+    .practice-option {
+        display: block;
+        margin: 8px 0;
+        padding: 12px;
+        background: rgba(0, 0, 0, 0.3);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: #ffffff;
+        font-family: 'Raleway', sans-serif;
+    }
+
+    .practice-option:hover {
+        background: rgba(0, 0, 0, 0.5);
+        border-color: #006847;
+    }
+
+    .practice-option input[type="radio"] {
+        margin-right: 10px;
+        accent-color: #006847;
+    }
+
+    .feedback {
+        padding: 15px;
+        border-radius: 8px;
+        margin: 15px 0;
+        font-weight: 500;
+        display: none;
+    }
+
+    .feedback.correct {
+        background: rgba(0, 208, 132, 0.2);
+        border: 1px solid rgba(0, 208, 132, 0.5);
+        color: #ffffff;
+    }
+
+    .feedback.incorrect {
+        background: rgba(255, 82, 82, 0.2);
+        border: 1px solid rgba(255, 82, 82, 0.5);
+        color: #ffffff;
+    }
+
+    .formula-box {
+        background: rgba(0, 104, 71, 0.2);
+        border: 1px solid rgba(0, 104, 71, 0.3);
+        padding: 15px;
+        border-radius: 8px;
+        margin: 15px 0;
+        text-align: center;
+        font-family: 'Courier New', monospace;
+        font-size: 1.1em;
+        color: #ffffff;
+        font-weight: 500;
+    }
+
+    .tip-box {
+        background: rgba(0, 104, 71, 0.2);
+        border: 1px solid rgba(0, 104, 71, 0.3);
+        padding: 15px;
+        border-radius: 8px;
+        margin: 15px 0;
+        color: #ffffff;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="concept-header">
+    <h1>{{ concept_info.title }}</h1>
+    <p style="font-size: 1.2em; margin-top: 10px; font-weight: 300;">
+        Estudia y practica este concepto de gramática
+    </p>
+</div>
+
+<div class="concept-info">
+    <h2 style="color: #ffffff; margin-bottom: 15px; font-weight: 500;">Explicación</h2>
+    <p style="color: #e0e0e0; font-size: 1.1em; line-height: 1.6; margin-bottom: 20px;">
+        {{ concept_info.description }}
+    </p>
+
+    {% if concept_info.formula %}
+    <div class="formula-box">
+        <strong>Fórmula:</strong> {{ concept_info.formula }}
+    </div>
+    {% endif %}
+
+    {% if concept_info.examples %}
+    <h3 style="color: #ffffff; margin: 20px 0 15px 0; font-weight: 500;">Ejemplos</h3>
+    <ul class="examples-list">
+        {% for example in concept_info.examples %}
+        <li>{{ example }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if concept_info.tips %}
+    <div class="tip-box">
+        <strong>Tip:</strong> {{ concept_info.tips }}
+    </div>
+    {% endif %}
+</div>
+
+<div class="practice-section">
+    <h2 style="color: #ffffff; margin-bottom: 20px; font-weight: 500;">Práctica Interactiva</h2>
+    
+    <div id="practice-container">
+        {% if questions and questions|length > 0 %}
+            <div class="practice-question" id="current-practice">
+                <div style="margin-bottom: 15px;">
+                    <span style="background: linear-gradient(45deg, #006847, #ce1126); color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.9em; font-weight: 500;">
+                        {{ concept_name.replace('_', ' ').title() }}
+                    </span>
+                </div>
+                
+                <p style="font-size: 1.2em; color: #ffffff; margin-bottom: 15px;" id="practice-question">
+                    {{ questions[0].question }}
+                </p>
+
+                {% if questions[0].type == 'multiple_choice' %}
+                    <div id="practice-options">
+                        {% for key, value in questions[0].options.items() %}
+                            <label class="practice-option">
+                                <input type="radio" name="practice_answer" value="{{ key }}">
+                                {{ key }}) {{ value }}
+                            </label>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <input type="text" class="practice-input" id="practice-input" 
+                           placeholder="Escribe tu respuesta aquí..." autocomplete="off">
+                {% endif %}
+
+                <div class="feedback" id="practice-feedback"></div>
+
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn" id="check-answer" onclick="checkPracticeAnswer()">
+                        Verificar Respuesta
+                    </button>
+                    <button class="btn btn-secondary" id="next-practice" onclick="nextPractice()" style="display: none;">
+                        Siguiente Pregunta
+                    </button>
+                </div>
+            </div>
+        {% else %}
+            <p style="color: #e0e0e0; text-align: center; padding: 20px;">
+                No hay preguntas de práctica disponibles en este momento.
+            </p>
+        {% endif %}
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 30px;">
+    <a href="/" class="btn btn-secondary">Volver al Inicio</a>
+    <a href="/exam" class="btn">Hacer Examen Completo</a>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let currentQuestion = {{ questions[0] | tojson if questions else 'null' }};
+let conceptName = '{{ concept_name }}';
+
+function checkPracticeAnswer() {
+    if (!currentQuestion) return;
+    
+    const checkBtn = document.getElementById('check-answer');
+    const feedback = document.getElementById('practice-feedback');
+    
+    let userAnswer;
+    
+    if (currentQuestion.type === 'multiple_choice') {
+        const selectedOption = document.querySelector('input[name="practice_answer"]:checked');
+        if (!selectedOption) {
+            alert('Por favor selecciona una respuesta.');
+            return;
+        }
+        userAnswer = selectedOption.value;
+    } else {
+        const input = document.getElementById('practice-input');
+        userAnswer = input.value.trim();
+        if (!userAnswer) {
+            alert('Por favor escribe tu respuesta.');
+            return;
+        }
+    }
+    
+    checkBtn.disabled = true;
+    checkBtn.textContent = 'Verificando...';
+    
+    fetch(`/concept/${conceptName}/practice`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            answer: userAnswer,
+            question: currentQuestion
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        displayPracticeFeedback(data);
+        if (data.new_question) {
+            currentQuestion = data.new_question;
+            document.getElementById('next-practice').style.display = 'inline-block';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error al verificar la respuesta.');
+        checkBtn.disabled = false;
+        checkBtn.textContent = 'Verificar Respuesta';
+    });
+}
+
+function displayPracticeFeedback(data) {
+    const feedback = document.getElementById('practice-feedback');
+    const isCorrect = data.is_correct;
+    
+    feedback.className = 'feedback ' + (isCorrect ? 'correct' : 'incorrect');
+    
+    let message = isCorrect ? 
+        'Correcto! ¡Órale, qué bien!' : 
+        'Incorrecto. Respuesta correcta: ' + data.correct_answer;
+    
+    if (data.explanation) {
+        message += '<br><br>📝 ' + data.explanation;
+    }
+    
+    feedback.innerHTML = message;
+    feedback.style.display = 'block';
+}
+
+function nextPractice() {
+    if (!currentQuestion) return;
+    
+    // Update question text
+    document.getElementById('practice-question').textContent = currentQuestion.question;
+    
+    // Clear previous answer
+    const input = document.getElementById('practice-input');
+    const optionsContainer = document.getElementById('practice-options');
+    
+    if (currentQuestion.type === 'multiple_choice') {
+        if (input) input.style.display = 'none';
+        
+        let optionsHtml = '';
+        for (const [key, value] of Object.entries(currentQuestion.options)) {
+            optionsHtml += `
+                <label class="practice-option">
+                    <input type="radio" name="practice_answer" value="${key}">
+                    ${key}) ${value}
+                </label>
+            `;
+        }
+        
+        if (optionsContainer) {
+            optionsContainer.innerHTML = optionsHtml;
+            optionsContainer.style.display = 'block';
+        }
+    } else {
+        if (optionsContainer) optionsContainer.style.display = 'none';
+        if (input) {
+            input.style.display = 'block';
+            input.value = '';
+        }
+    }
+    
+    // Reset buttons and feedback
+    document.getElementById('check-answer').disabled = false;
+    document.getElementById('check-answer').textContent = 'Verificar Respuesta';
+    document.getElementById('next-practice').style.display = 'none';
+    document.getElementById('practice-feedback').style.display = 'none';
+}
+
+// Handle Enter key for text input
+document.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter' && currentQuestion && currentQuestion.type !== 'multiple_choice') {
+        const checkBtn = document.getElementById('check-answer');
+        if (!checkBtn.disabled) {
+            checkPracticeAnswer();
+        }
+    }
+});
+</script>
+{% endblock %}
