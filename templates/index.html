@@ -105,9 +105,6 @@
     </div>
     
     <div style="text-align: center; margin-top: 30px;">
-        <a href="/exam" class="btn" style="font-size: 1.4em; padding: 20px 50px; background: linear-gradient(135deg, #ce1126, #006847); border: none; color: white; text-decoration: none; border-radius: 50px; display: inline-block; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(206, 17, 38, 0.4), 0 0 20px rgba(0, 104, 71, 0.3); margin-right: 15px;">
-            📝 Ir al Examen Final
-        </a>
         <a href="/examen_funcional" class="btn" style="font-size: 1.4em; padding: 20px 50px; background: linear-gradient(135deg, #006847, #ce1126); border: none; color: white; text-decoration: none; border-radius: 50px; display: inline-block; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(0, 104, 71, 0.4), 0 0 20px rgba(206, 17, 38, 0.3);">
             ✅ Examen Funcional
         </a>
@@ -119,28 +116,23 @@
         📚 Materiales de Estudio
     </h3>
     
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-        <div style="text-align: center; padding: 20px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1);">
-            <h4 style="color: #ffffff; font-weight: 500; margin-bottom: 15px;">🎯 Práctica por Conceptos</h4>
-            <p style="color: #e0e0e0; font-size: 0.9em; font-weight: 300; margin-bottom: 15px;">
-                Estudia cada concepto gramatical individualmente
-            </p>
-            <p style="color: #b0b0b0; font-size: 0.8em;">
-                Haz clic en cualquier concepto arriba para practicar
-            </p>
-        </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <a href="/chilango" style="text-decoration: none;">
+            <div style="text-align: center; padding: 20px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer; transition: all 0.3s ease; height: 100%;">
+                <h4 style="color: #ffffff; font-weight: 500; margin-bottom: 15px;">�🇽 Vocabulario Mexicano</h4>
+                <p style="color: #e0e0e0; font-size: 0.9em; font-weight: 300; margin-bottom: 15px;">
+                    Aprende expresiones auténticas de México
+                </p>
+                <p style="color: #b0b0b0; font-size: 0.8em;">
+                    Nombres, lugares, comida y expresiones reales
+                </p>
+                <p style="color: #00d084; margin-top: 10px; font-size: 0.9em;">
+                    Explorar slang chilango →
+                </p>
+            </div>
+        </a>
         
-        <div style="text-align: center; padding: 20px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1);">
-            <h4 style="color: #ffffff; font-weight: 500; margin-bottom: 15px;">🇲🇽 Vocabulario Mexicano</h4>
-            <p style="color: #e0e0e0; font-size: 0.9em; font-weight: 300; margin-bottom: 15px;">
-                Aprende expresiones auténticas de México
-            </p>
-            <p style="color: #b0b0b0; font-size: 0.8em;">
-                Nombres, lugares, comida y expresiones reales
-            </p>
-        </div>
-        
-        <div style="text-align: center; padding: 20px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1);">
+        <div style="text-align: center; padding: 20px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); height: 100%;">
             <h4 style="color: #ffffff; font-weight: 500; margin-bottom: 15px;">📖 Programa UNAM</h4>
             <p style="color: #e0e0e0; font-size: 0.9em; font-weight: 300; margin-bottom: 15px;">
                 Basado en el programa oficial Nivel 5
@@ -167,6 +159,13 @@
     box-shadow: 0 2px 12px rgba(206,17,38,0.10);
     color: #fff !important;
     text-decoration: none;
+}
+
+/* Hover effect for Mexican Spanish box */
+a[href="/chilango"] div:hover {
+    background: rgba(206, 17, 38, 0.1) !important;
+    box-shadow: 0 8px 25px rgba(206, 17, 38, 0.3);
+    transform: translateY(-2px);
 }
 </style>
 {% endblock %}
