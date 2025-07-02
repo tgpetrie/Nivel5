@@ -11,6 +11,9 @@
 # Dependencies for Web Version:
 flask>=2.3.0
 
+# Production server for deployment
+gunicorn
+
 # No additional dependencies required for terminal version
 # This app uses only Python standard library modules:
 # - textwrap
