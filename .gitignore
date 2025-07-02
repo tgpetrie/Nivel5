@@ -53,6 +53,7 @@ coverage.xml
 .DS_Store
 
 # Environment variables
+
 .env
 .venv
 env/
@@ -62,3 +63,4 @@ env.bak/
 venv.bak/
 
 # Free-response answers
+respuestas_libres.json

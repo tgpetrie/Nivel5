@@ -1,0 +1,283 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<style>
+    .results-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .score-display {
+        font-size: 3em;
+        font-weight: 600;
+        margin: 20px 0;
+        font-family: 'Raleway', sans-serif;
+    }
+
+    .score-excellent {
+        color: #00d084;
+        text-shadow: 0 0 20px rgba(0, 208, 132, 0.5);
+    }
+
+    .score-good {
+        color: #ffa726;
+        text-shadow: 0 0 20px rgba(255, 167, 38, 0.5);
+    }
+
+    .score-needs-improvement {
+        color: #ff5252;
+        text-shadow: 0 0 20px rgba(255, 82, 82, 0.5);
+    }
+
+    .results-summary {
+        background: linear-gradient(135deg, #006847 0%, #008a5a 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        margin-bottom: 30px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-family: 'Raleway', sans-serif;
+    }
+
+    .answer-review {
+        margin-bottom: 30px;
+    }
+
+    .answer-item {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 15px;
+        border-left: 5px solid rgba(255, 255, 255, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+    }
+
+    .answer-item.correct {
+        border-left-color: #00d084;
+        background: rgba(0, 208, 132, 0.1);
+    }
+
+    .answer-item.incorrect {
+        border-left-color: #ff5252;
+        background: rgba(255, 82, 82, 0.1);
+    }
+
+    .question-text {
+        font-weight: 500;
+        color: #ffffff;
+        margin-bottom: 10px;
+        font-family: 'Raleway', sans-serif;
+    }
+
+    .answer-details {
+        margin-top: 10px;
+    }
+
+    .user-answer {
+        color: #e0e0e0;
+    }
+
+    .correct-answer {
+        color: #00d084;
+        font-weight: 500;
+    }
+
+    .concept-breakdown {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .concept-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+    }
+
+    .concept-item:last-child {
+        border-bottom: none;
+    }
+
+    .concept-score {
+        font-weight: 600;
+        padding: 8px 15px;
+        border-radius: 15px;
+        color: white;
+        font-size: 0.9em;
+        font-family: 'Raleway', sans-serif;
+    }
+
+    .actions {
+        text-align: center;
+        margin-top: 30px;
+    }
+</style>
+{% endblock %}
+        color: white;
+        font-size: 0.9em;
+    }
+
+    .actions {
+        text-align: center;
+        margin-top: 30px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="results-summary">
+    <h2>¡Examen Completado!</h2>
+    <div class="score-display 
+        {% if percentage >= 85 %}score-excellent
+        {% elif percentage >= 70 %}score-good
+        {% else %}score-needs-improvement{% endif %}">
+        {{ score }} / {{ total }}
+    </div>
+    <p style="font-size: 1.5em; margin-bottom: 10px; font-weight: 500;">{{ percentage }}%</p>
+    
+    {% if percentage >= 85 %}
+        <p style="font-size: 1.2em; font-weight: 400;">¡Excelente! ¡Órale, qué bien dominas el español mexicano!</p>
+    {% elif percentage >= 70 %}
+        <p style="font-size: 1.2em; font-weight: 400;">¡Bien hecho! Tienes un buen manejo de la gramática.</p>
+    {% else %}
+        <p style="font-size: 1.2em; font-weight: 400;">¡Sigue estudiando! La práctica hace al maestro.</p>
+    {% endif %}
+</div>
+
+<div class="card">
+    <h3 style="color: #ffffff; margin-bottom: 20px; font-weight: 500;">Desglose por Conceptos</h3>
+    <div class="concept-breakdown">
+        {% set concept_scores = {} %}
+        {% for answer in answers %}
+            {% if answer.concept not in concept_scores %}
+                {% set _ = concept_scores.update({answer.concept: {'correct': 0, 'total': 0}}) %}
+            {% endif %}
+            {% set _ = concept_scores[answer.concept].update({'total': concept_scores[answer.concept]['total'] + 1}) %}
+            {% if answer.is_correct %}
+                {% set _ = concept_scores[answer.concept].update({'correct': concept_scores[answer.concept]['correct'] + 1}) %}
+            {% endif %}
+        {% endfor %}
+        
+        {% for concept, scores in concept_scores.items() %}
+            {% set concept_percentage = (scores.correct / scores.total * 100) | round(1) %}
+            <div class="concept-item">
+                <span>
+                    <strong style="color: #ffffff;">{{ concept.replace('_', ' ').title() }}</strong>
+                    <br>
+                    <small style="color: #b0b0b0;">{{ scores.correct }}/{{ scores.total }} correctas</small>
+                </span>
+                <span class="concept-score" style="background: 
+                    {% if concept_percentage >= 80 %}#00d084
+                    {% elif concept_percentage >= 60 %}#ffa726
+                    {% else %}#ff5252{% endif %}">
+                    {{ concept_percentage }}%
+                </span>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="card">
+    <h3 style="color: #ffffff; margin-bottom: 20px; font-weight: 500;">Revisión de Respuestas</h3>
+    <div class="answer-review">
+        {% for answer in answers %}
+            <div class="answer-item {% if answer.is_correct %}correct{% else %}incorrect{% endif %}">
+                <div class="question-text">
+                    {{ loop.index }}. {{ answer.question }}
+                </div>
+                
+                <div style="font-size: 0.9em; color: #b0b0b0; margin-bottom: 10px;">
+                    <strong>Concepto:</strong> {{ answer.concept.replace('_', ' ').title() }}
+                </div>
+                
+                <div class="answer-details">
+                    <div class="user-answer">
+                        <strong>Tu respuesta:</strong> 
+                        {% if answer.is_correct %}
+                            Correcto: {{ answer.user_answer }}
+                        {% else %}
+                            Incorrecto: {{ answer.user_answer }}
+                        {% endif %}
+                    </div>
+                    
+                    {% if not answer.is_correct %}
+                        <div class="correct-answer" style="margin-top: 5px;">
+                            <strong>Respuesta correcta:</strong> {{ answer.correct_answer }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="actions">
+    <a href="/exam" class="btn">Hacer Nuevo Examen</a>
+    <a href="/" class="btn btn-secondary">Inicio</a>
+    
+    <div style="margin-top: 20px;">
+        <button onclick="window.print()" class="btn btn-secondary">Imprimir Resultados</button>
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(0, 0, 0, 0.3); border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1);">
+    <h4 style="color: #ffffff; margin-bottom: 15px; font-weight: 500;">Recomendaciones de Estudio</h4>
+    
+    {% if percentage < 70 %}
+        <p style="color: #e0e0e0; font-weight: 300;">
+            Te recomendamos repasar los conceptos con menor puntuación.<br>
+            Practica con conversaciones usando expresiones mexicanas.<br>
+            Haz ejercicios adicionales de subjuntivo y condicional.
+        </p>
+    {% elif percentage < 85 %}
+        <p style="color: #e0e0e0; font-weight: 300;">
+            Enfócate en los conceptos donde obtuviste menor puntuación.<br>
+            Consume más contenido en español mexicano (películas, música, podcasts).<br>
+            Practica escribiendo oraciones con las estructuras gramaticales.
+        </p>
+    {% else %}
+        <p style="color: #e0e0e0; font-weight: 300;">
+            ¡Excelente dominio! Mantén tu nivel practicando regularmente.<br>
+            Busca oportunidades para conversar con hablantes nativos.<br>
+            Lee literatura mexicana para enriquecer tu vocabulario.
+        </p>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Add some interactive elements for the results page
+document.addEventListener('DOMContentLoaded', function() {
+    // Animate score display
+    const scoreDisplay = document.querySelector('.score-display');
+    if (scoreDisplay) {
+        scoreDisplay.style.opacity = '0';
+        scoreDisplay.style.transform = 'scale(0.5)';
+        
+        setTimeout(() => {
+            scoreDisplay.style.transition = 'all 0.5s ease';
+            scoreDisplay.style.opacity = '1';
+            scoreDisplay.style.transform = 'scale(1)';
+        }, 500);
+    }
+    
+    // Add click handlers to concept items for more details
+    document.querySelectorAll('.concept-item').forEach(item => {
+        item.style.cursor = 'pointer';
+        item.addEventListener('click', function() {
+            const conceptName = this.querySelector('strong').textContent;
+            alert(`Concepto: ${conceptName}\n\nEste concepto se evalúa con preguntas dinámicas que cambian en cada examen.`);
+        });
+    });
+});
+</script>
+{% endblock %}

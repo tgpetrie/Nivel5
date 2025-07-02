@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <h2 style="color: #ffffff; margin-bottom: 20px; text-align: center; font-weight: 600;">
+        🎧 Comprensión Auditiva
+    </h2>
+    
+    <div style="text-align: center; margin-bottom: 30px;">
+        <p style="font-size: 1.2em; color: #e0e0e0; margin-bottom: 20px; font-weight: 300;">
+            Ejemplos de audio y ejercicios de comprensión oral
+        </p>
+    </div>
+
+    <div style="display: grid; gap: 20px; max-width: 800px; margin: 0 auto;">
+        <!-- Section 1: Basic Conversations -->
+        <div style="background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1);">
+            <h3 style="color: #ffffff; margin-bottom: 15px;">📱 Conversaciones Básicas</h3>
+            <div style="margin-bottom: 20px;">
+                <h4 style="color: #00d084; margin-bottom: 10px;">En el Restaurante</h4>
+                <audio controls style="width: 100%; margin-bottom: 10px;">
+                    <source src="/static/audio/restaurant.mp3" type="audio/mpeg">
+                    Tu navegador no soporta el elemento de audio.
+                </audio>
+                <p style="color: #b0b0b0; font-size: 0.9em;">Una conversación típica en un restaurante mexicano</p>
+            </div>
+        </div>
+
+        <!-- Section 2: Intermediate Dialogues -->
+        <div style="background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1);">
+            <h3 style="color: #ffffff; margin-bottom: 15px;">🗣️ Diálogos Intermedios</h3>
+            <div style="margin-bottom: 20px;">
+                <h4 style="color: #00d084; margin-bottom: 10px;">En la Universidad</h4>
+                <audio controls style="width: 100%; margin-bottom: 10px;">
+                    <source src="/static/audio/university.mp3" type="audio/mpeg">
+                    Tu navegador no soporta el elemento de audio.
+                </audio>
+                <p style="color: #b0b0b0; font-size: 0.9em;">Estudiantes discutiendo sobre sus clases</p>
+            </div>
+        </div>
+
+        <!-- Section 3: Advanced Conversations -->
+        <div style="background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1);">
+            <h3 style="color: #ffffff; margin-bottom: 15px;">🎭 Conversaciones Avanzadas</h3>
+            <div style="margin-bottom: 20px;">
+                <h4 style="color: #00d084; margin-bottom: 10px;">Debate Cultural</h4>
+                <audio controls style="width: 100%; margin-bottom: 10px;">
+                    <source src="/static/audio/debate.mp3" type="audio/mpeg">
+                    Tu navegador no soporta el elemento de audio.
+                </audio>
+                <p style="color: #b0b0b0; font-size: 0.9em;">Discusión sobre tradiciones mexicanas</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="/" class="btn" style="font-size: 1.1em; padding: 12px 25px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: white; text-decoration: none; border-radius: 25px; display: inline-block; transition: all 0.3s ease;">
+            ← Volver a la Guía de Estudio
+        </a>
+    </div>
+</div>
+
+<style>
+audio {
+    border-radius: 25px;
+    background: rgba(0, 0, 0, 0.3);
+}
+audio::-webkit-media-controls-panel {
+    background: rgba(0, 0, 0, 0.3);
+}
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display {
+    color: #ffffff;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,415 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<style>
+    .question-container {
+        margin-bottom: 30px;
+    }
+
+    .question-text {
+        font-size: 1.3em;
+        color: #ffffff;
+        margin-bottom: 20px;
+        line-height: 1.6;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        border-left: 5px solid #006847;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 20px rgba(206, 17, 38, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .question-text:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 30px rgba(206, 17, 38, 0.3);
+    }
+
+    .answer-input {
+        width: 100%;
+        padding: 15px;
+        font-size: 1.1em;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+        background: rgba(0, 0, 0, 0.3);
+        color: #ffffff;
+        font-family: 'Raleway', sans-serif;
+        box-shadow: 0 4px 15px rgba(206, 17, 38, 0.1);
+    }
+
+    .answer-input::placeholder {
+        color: #b0b0b0;
+    }
+
+    .answer-input:focus {
+        outline: none;
+        border-color: #006847;
+        box-shadow: 0 8px 25px rgba(0, 104, 71, 0.4), 0 4px 15px rgba(206, 17, 38, 0.2);
+        background: rgba(0, 0, 0, 0.5);
+        transform: translateY(-1px);
+    }
+
+    .options-container {
+        margin-bottom: 20px;
+    }
+
+    .option {
+        display: block;
+        margin: 10px 0;
+        padding: 15px;
+        background: rgba(0, 0, 0, 0.3);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 1.1em;
+        color: #ffffff;
+        font-family: 'Raleway', sans-serif;
+        box-shadow: 0 4px 15px rgba(206, 17, 38, 0.1);
+        transform: translateZ(0);
+    }
+
+    .option:hover {
+        background: rgba(0, 0, 0, 0.5);
+        border-color: #006847;
+        box-shadow: 0 8px 25px rgba(0, 104, 71, 0.3), 0 4px 15px rgba(206, 17, 38, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .option input[type="radio"] {
+        margin-right: 10px;
+        transform: scale(1.2);
+        accent-color: #006847;
+    }
+
+    .question-info {
+        background: linear-gradient(45deg, #006847, #008a5a);
+        color: white;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+        font-family: 'Raleway', sans-serif;
+        font-weight: 500;
+        box-shadow: 0 8px 25px rgba(0, 104, 71, 0.4), 0 4px 15px rgba(206, 17, 38, 0.2);
+        transition: all 0.3s ease;
+        transform: translateZ(0);
+    }
+
+    .question-info:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 35px rgba(0, 104, 71, 0.5), 0 6px 20px rgba(206, 17, 38, 0.3);
+    }
+
+    .feedback {
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+        font-size: 1.1em;
+        display: none;
+        font-family: 'Raleway', sans-serif;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .feedback.correct {
+        background: rgba(0, 104, 71, 0.2);
+        color: #ffffff;
+        border: 1px solid rgba(0, 104, 71, 0.5);
+    }
+
+    .feedback.incorrect {
+        background: rgba(206, 17, 38, 0.2);
+        color: #ffffff;
+        border: 1px solid rgba(206, 17, 38, 0.5);
+    }
+
+    .loading {
+        text-align: center;
+        padding: 40px;
+        color: #ffffff;
+        font-size: 1.2em;
+        font-family: 'Raleway', sans-serif;
+    }
+
+    .concept-tag {
+        display: inline-block;
+        background: linear-gradient(45deg, #006847, #008a5a);
+        color: white;
+        padding: 8px 15px;
+        border-radius: 15px;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+        font-weight: 500;
+        font-family: 'Raleway', sans-serif;
+        box-shadow: 0 4px 15px rgba(0, 104, 71, 0.3), 0 2px 8px rgba(206, 17, 38, 0.2);
+        transition: all 0.3s ease;
+        transform: translateZ(0);
+    }
+
+    .concept-tag:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(0, 104, 71, 0.4), 0 3px 12px rgba(206, 17, 38, 0.3);
+    }
+
+    .progress-bar {
+        background: rgba(60, 60, 60, 0.8);
+        height: 10px;
+        border-radius: 5px;
+        overflow: hidden;
+        margin-bottom: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .progress-fill {
+        background: linear-gradient(45deg, #006847, #008a5a);
+        height: 100%;
+        transition: width 0.3s ease;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="question-info">
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: {{ (question_num / total) * 100 }}%;"></div>
+    </div>
+    <h3>Pregunta {{ question_num }} de {{ total }}</h3>
+    <p>Puntuación actual: <span id="current-score">0</span> / {{ total }}</p>
+</div>
+
+<div class="card">
+    <div id="question-container">
+        <div class="concept-tag">{{ question.concept.replace('_', ' ').title() }}</div>
+        
+        <div class="question-text" id="question-text">
+            {{ question.question }}
+        </div>
+
+        {% if question.type == 'multiple_choice' %}
+            <div class="options-container" id="options-container">
+                {% for key, value in question.options.items() %}
+                    <label class="option">
+                        <input type="radio" name="answer" value="{{ key }}">
+                        {{ key }}) {{ value }}
+                    </label>
+                {% endfor %}
+            </div>
+        {% else %}
+            <input type="text" class="answer-input" id="answer-input" 
+                   placeholder="Escribe tu respuesta aquí..." autocomplete="off">
+        {% endif %}
+
+        <div class="feedback" id="feedback"></div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="btn" id="submit-btn" onclick="submitAnswer()">
+                Enviar Respuesta
+            </button>
+            <button class="btn btn-secondary" id="next-btn" onclick="nextQuestion()" style="display: none;">
+                Siguiente Pregunta
+            </button>
+        </div>
+    </div>
+
+    <div id="loading" class="loading" style="display: none;">
+        <p>🔄 Cargando siguiente pregunta...</p>
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 20px;">
+    <a href="/" class="btn btn-secondary">🏠 Inicio</a>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let currentQuestionData = {{ question | tojson }};
+let currentQuestionNum = {{ question_num }};
+let totalQuestions = {{ total }};
+let currentScore = 0;
+
+function submitAnswer() {
+    const submitBtn = document.getElementById('submit-btn');
+    const feedback = document.getElementById('feedback');
+    
+    let userAnswer;
+    
+    if (currentQuestionData.type === 'multiple_choice') {
+        const selectedOption = document.querySelector('input[name="answer"]:checked');
+        if (!selectedOption) {
+            alert('Por favor selecciona una respuesta.');
+            return;
+        }
+        userAnswer = selectedOption.value;
+    } else {
+        userAnswer = document.getElementById('answer-input').value.trim();
+        if (!userAnswer) {
+            alert('Por favor escribe tu respuesta.');
+            return;
+        }
+    }
+    
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando...';
+    
+    fetch('/submit_answer', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            answer: userAnswer
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        displayFeedback(data);
+        currentScore = data.score;
+        document.getElementById('current-score').textContent = currentScore;
+        
+        if (data.exam_complete) {
+            setTimeout(() => {
+                window.location.href = '/results';
+            }, 3000);
+        } else {
+            document.getElementById('next-btn').style.display = 'inline-block';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error al enviar la respuesta. Por favor intenta de nuevo.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Enviar Respuesta';
+    });
+}
+
+function displayFeedback(data) {
+    const feedback = document.getElementById('feedback');
+    const isCorrect = data.is_correct;
+    
+    feedback.className = 'feedback ' + (isCorrect ? 'correct' : 'incorrect');
+    
+    let message = isCorrect ? 
+        '✅ ¡Correcto! ¡Órale, qué bien!' : 
+        '❌ Incorrecto. La respuesta correcta es: ' + data.correct_answer;
+    
+    if (data.exam_complete) {
+        message += `<br><br>🎉 ¡Examen completado! Tu puntuación final: ${data.final_score}/${data.total_questions} (${data.percentage}%)`;
+        message += '<br>Redirigiendo a los resultados en 3 segundos...';
+    }
+    
+    feedback.innerHTML = message;
+    feedback.style.display = 'block';
+}
+
+function nextQuestion() {
+    const questionContainer = document.getElementById('question-container');
+    const loading = document.getElementById('loading');
+    
+    questionContainer.style.display = 'none';
+    loading.style.display = 'block';
+    
+    fetch('/submit_answer', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            answer: 'next'
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.next_question) {
+            loadNewQuestion(data.next_question, data.question_num);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error al cargar la siguiente pregunta.');
+    });
+}
+
+function loadNewQuestion(questionData, questionNum) {
+    currentQuestionData = questionData;
+    currentQuestionNum = questionNum;
+    
+    // Update progress bar
+    const progressFill = document.querySelector('.progress-fill');
+    progressFill.style.width = `${(questionNum / totalQuestions) * 100}%`;
+    
+    // Update question number
+    document.querySelector('.question-info h3').textContent = `Pregunta ${questionNum} de ${totalQuestions}`;
+    
+    // Update concept tag
+    document.querySelector('.concept-tag').textContent = questionData.concept.replace('_', ' ').charAt(0).toUpperCase() + questionData.concept.replace('_', ' ').slice(1);
+    
+    // Update question text
+    document.getElementById('question-text').textContent = questionData.question;
+    
+    // Clear previous answer
+    const answerInput = document.getElementById('answer-input');
+    const optionsContainer = document.getElementById('options-container');
+    
+    if (questionData.type === 'multiple_choice') {
+        if (answerInput) answerInput.style.display = 'none';
+        
+        let optionsHtml = '';
+        for (const [key, value] of Object.entries(questionData.options)) {
+            optionsHtml += `
+                <label class="option">
+                    <input type="radio" name="answer" value="${key}">
+                    ${key}) ${value}
+                </label>
+            `;
+        }
+        
+        if (!optionsContainer) {
+            const newOptionsContainer = document.createElement('div');
+            newOptionsContainer.className = 'options-container';
+            newOptionsContainer.id = 'options-container';
+            document.getElementById('question-text').insertAdjacentElement('afterend', newOptionsContainer);
+        }
+        document.getElementById('options-container').innerHTML = optionsHtml;
+    } else {
+        if (optionsContainer) optionsContainer.style.display = 'none';
+        
+        if (!answerInput) {
+            const newAnswerInput = document.createElement('input');
+            newAnswerInput.type = 'text';
+            newAnswerInput.className = 'answer-input';
+            newAnswerInput.id = 'answer-input';
+            newAnswerInput.placeholder = 'Escribe tu respuesta aquí...';
+            newAnswerInput.autocomplete = 'off';
+            document.getElementById('question-text').insertAdjacentElement('afterend', newAnswerInput);
+        } else {
+            answerInput.style.display = 'block';
+            answerInput.value = '';
+        }
+    }
+    
+    // Reset buttons and feedback
+    document.getElementById('submit-btn').disabled = false;
+    document.getElementById('submit-btn').textContent = 'Enviar Respuesta';
+    document.getElementById('submit-btn').style.display = 'inline-block';
+    document.getElementById('next-btn').style.display = 'none';
+    document.getElementById('feedback').style.display = 'none';
+    
+    // Show question container and hide loading
+    document.getElementById('question-container').style.display = 'block';
+    document.getElementById('loading').style.display = 'none';
+}
+
+// Handle Enter key for text input
+document.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter' && currentQuestionData.type !== 'multiple_choice') {
+        const submitBtn = document.getElementById('submit-btn');
+        if (!submitBtn.disabled) {
+            submitAnswer();
+        }
+    }
+});
+</script>
+{% endblock %}

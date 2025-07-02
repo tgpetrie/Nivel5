@@ -1,0 +1,38 @@
+# Dynamic Mexican Spanish Question Generator
+# ==========================================
+# 
+# NEW FEATURES:
+# - Dynamic question generation from grammar concepts
+# - Colloquial Mexican Spanish vocabulary
+# - Question database storage (JSON)
+# - Regenerate questions on demand
+# - Web-based interface with Flask
+# 
+# Dependencies for Web Version:
+flask>=2.3.0
+
+# No additional dependencies required for terminal version
+# This app uses only Python standard library modules:
+# - textwrap
+# - unicodedata  
+# - json
+# - os
+# - sys
+# - random
+# - datetime
+#
+# CONCEPTS COVERED:
+# - Antepresente (ha + participio)
+# - Antecopretérito (había + participio) 
+# - lo + adjetivo + de
+# - Subjuntivo (percepción, opinión, emoción)
+# - Condicional (si + imperfecto subjuntivo)
+# - Cláusulas temporales (cuando, en cuanto, etc.)
+# - Discurso indirecto
+# - Oraciones relativas
+#
+# MEXICAN VOCABULARY:
+# - Names: Lupita, Paco, Chuy, Gaby, Memo, etc.
+# - Food: tacos, pozole, mole, tamales, etc.
+# - Places: Zócalo, Xochimilco, Coyoacán, etc.
+# - Expressions: ¡Órale!, ¡Qué padre!, etc.

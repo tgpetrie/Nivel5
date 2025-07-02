@@ -1,0 +1,549 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<style>
+    .section-header {
+        background: linear-gradient(135deg, rgba(0, 104, 71, 0.9), rgba(206, 17, 38, 0.9));
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 30px;
+        text-align: center;
+        box-shadow: 0 8px 25px rgba(206, 17, 38, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .section-title {
+        font-size: 2.2em;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .section-description {
+        font-size: 1.2em;
+        color: #f0f0f0;
+        margin-bottom: 15px;
+        font-style: italic;
+    }
+
+    .section-progress {
+        font-size: 1.1em;
+        color: #ffffff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .progress-info {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 8px 15px;
+        border-radius: 20px;
+        margin: 5px;
+    }
+
+    .question-container {
+        margin-bottom: 35px;
+        padding: 25px;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 15px;
+        border-left: 5px solid #006847;
+        box-shadow: 0 8px 20px rgba(206, 17, 38, 0.2);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .question-container:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(206, 17, 38, 0.3);
+    }
+
+    .question-number {
+        font-size: 1.1em;
+        font-weight: 600;
+        color: #006847;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .question-badge {
+        background: #006847;
+        color: #ffffff;
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-size: 0.9em;
+        margin-right: 10px;
+        font-weight: 700;
+    }
+
+    .concept-tag {
+        background: rgba(206, 17, 38, 0.8);
+        color: #ffffff;
+        padding: 3px 8px;
+        border-radius: 10px;
+        font-size: 0.8em;
+        margin-left: auto;
+    }
+
+    .question-text {
+        font-size: 1.4em;
+        color: #ffffff;
+        margin-bottom: 20px;
+        line-height: 1.6;
+        font-weight: 500;
+    }
+
+    .reading-text {
+        background: rgba(0, 104, 71, 0.2);
+        padding: 20px;
+        border-radius: 10px;
+        border-left: 4px solid #006847;
+        margin-bottom: 20px;
+        font-size: 1.1em;
+        line-height: 1.7;
+        color: #e0e0e0;
+    }
+
+    .answer-input {
+        width: 100%;
+        padding: 15px;
+        font-size: 1.2em;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+        margin-bottom: 15px;
+        transition: all 0.3s ease;
+        background: rgba(0, 0, 0, 0.3);
+        color: #ffffff;
+        font-family: 'Raleway', sans-serif;
+        box-shadow: 0 4px 15px rgba(206, 17, 38, 0.1);
+    }
+
+    .answer-input::placeholder {
+        color: #b0b0b0;
+    }
+
+    .answer-input:focus {
+        outline: none;
+        border-color: #006847;
+        box-shadow: 0 8px 25px rgba(0, 104, 71, 0.4), 0 4px 15px rgba(206, 17, 38, 0.2);
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .essay-textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    .short-answer-input {
+        min-height: 80px;
+        resize: vertical;
+    }
+
+    .multiple-choice-options {
+        margin-bottom: 20px;
+    }
+
+    .option-item {
+        margin-bottom: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .option-item label {
+        display: flex;
+        align-items: center;
+        padding: 12px 18px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+        font-size: 1.1em;
+    }
+
+    .option-item label:hover {
+        background: rgba(0, 104, 71, 0.3);
+        border-color: #006847;
+        transform: translateX(5px);
+    }
+
+    .option-item input[type="radio"] {
+        margin-right: 15px;
+        transform: scale(1.3);
+        accent-color: #006847;
+    }
+
+    .submit-btn {
+        background: linear-gradient(135deg, #006847, #228B22);
+        color: #ffffff;
+        border: none;
+        padding: 12px 30px;
+        font-size: 1.1em;
+        font-weight: 600;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 20px rgba(0, 104, 71, 0.3);
+        font-family: 'Raleway', sans-serif;
+    }
+
+    .submit-btn:hover {
+        background: linear-gradient(135deg, #228B22, #006847);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 104, 71, 0.4);
+    }
+
+    .submit-btn:disabled {
+        background: #666;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+
+    .feedback {
+        margin-top: 15px;
+        padding: 15px;
+        border-radius: 10px;
+        display: none;
+        font-size: 1.1em;
+        font-weight: 500;
+    }
+
+    .feedback.correct {
+        background: rgba(34, 139, 34, 0.8);
+        color: #ffffff;
+        border-left: 5px solid #228B22;
+    }
+
+    .feedback.incorrect {
+        background: rgba(206, 17, 38, 0.8);
+        color: #ffffff;
+        border-left: 5px solid #CE1126;
+    }
+
+    .feedback.attempted {
+        background: rgba(255, 165, 0, 0.8);
+        color: #ffffff;
+        border-left: 5px solid #FFA500;
+    }
+
+    .navigation-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 40px;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 15px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .nav-btn {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 25px;
+        font-size: 1.1em;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        font-family: 'Raleway', sans-serif;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-btn.primary {
+        background: linear-gradient(135deg, #006847, #228B22);
+        color: #ffffff;
+    }
+
+    .nav-btn.primary:hover {
+        background: linear-gradient(135deg, #228B22, #006847);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 104, 71, 0.3);
+    }
+
+    .nav-btn.secondary {
+        background: rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .nav-btn.secondary:hover {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.5);
+        transform: translateY(-2px);
+    }
+
+    .nav-btn.finish {
+        background: linear-gradient(135deg, #CE1126, #8B0000);
+        color: #ffffff;
+    }
+
+    .nav-btn.finish:hover {
+        background: linear-gradient(135deg, #8B0000, #CE1126);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(206, 17, 38, 0.3);
+    }
+
+    .exam-stats {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .stat-item {
+        margin: 5px 10px;
+        font-weight: 600;
+    }
+
+    .stat-value {
+        color: #006847;
+        font-size: 1.2em;
+    }
+
+    @media (max-width: 768px) {
+        .section-progress {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .navigation-controls {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .nav-btn {
+            width: 100%;
+            margin: 5px 0;
+        }
+        
+        .question-text {
+            font-size: 1.2em;
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="section-header">
+    <div class="section-title">
+        Sección {{ section_id }}: {{ section_info.title }}
+    </div>
+    <div class="section-description">
+        {{ section_info.description }}
+    </div>
+    <div class="section-progress">
+        <div class="progress-info">
+            <strong>Página:</strong> {{ page_idx + 1 }} de {{ total_pages }}
+        </div>
+        <div class="progress-info">
+            <strong>Sección:</strong> {{ section_idx + 1 }} de {{ total_sections }}
+        </div>
+        <div class="progress-info">
+            <strong>Valor:</strong> {{ section_info.points }} puntos
+        </div>
+    </div>
+</div>
+
+{% for question in questions %}
+<div class="question-container" data-question-index="{{ start_question_idx + loop.index0 }}">
+    <div class="question-number">
+        <span class="question-badge">{{ start_question_idx + loop.index }}</span>
+        <span class="concept-tag">{{ question.concept.replace('_', ' ').title() }}</span>
+    </div>
+    
+    {% if question.text %}
+    <div class="reading-text">
+        {{ question.text }}
+    </div>
+    {% endif %}
+    
+    <div class="question-text">
+        {{ question.question }}
+    </div>
+    
+    {% if question.type == 'multiple_choice' %}
+        <div class="multiple-choice-options">
+            {% for key, value in question.options.items() %}
+            <div class="option-item">
+                <label>
+                    <input type="radio" name="answer_{{ start_question_idx + loop.index0 }}" value="{{ key }}">
+                    <strong>{{ key }})</strong> {{ value }}
+                </label>
+            </div>
+            {% endfor %}
+        </div>
+    {% elif question.type == 'essay' %}
+        <textarea class="answer-input essay-textarea" 
+                  data-question-index="{{ start_question_idx + loop.index0 }}"
+                  placeholder="Escribe tu respuesta aquí (130-150 palabras)..."></textarea>
+    {% elif question.type == 'short_answer' %}
+        <textarea class="answer-input short-answer-input" 
+                  data-question-index="{{ start_question_idx + loop.index0 }}"
+                  placeholder="Respuesta corta (2-3 oraciones)..."></textarea>
+    {% else %}
+        <input type="text" class="answer-input" 
+               data-question-index="{{ start_question_idx + loop.index0 }}"
+               placeholder="Tu respuesta...">
+    {% endif %}
+    
+    <button class="submit-btn" onclick="submitQuestion({{ start_question_idx + loop.index0 }})">
+        Verificar Respuesta
+    </button>
+    
+    <div class="feedback" id="feedback_{{ start_question_idx + loop.index0 }}"></div>
+</div>
+{% endfor %}
+
+<div class="exam-stats">
+    <div class="stat-item">
+        Preguntas respondidas: <span class="stat-value" id="answered-count">0</span>
+    </div>
+    <div class="stat-item">
+        Puntuación actual: <span class="stat-value" id="current-score">0</span>
+    </div>
+</div>
+
+<div class="navigation-controls">
+    {% if page_idx > 0 %}
+        <a href="/exam_section/{{ section_idx }}/{{ page_idx - 1 }}" class="nav-btn secondary">
+            ← Página Anterior
+        </a>
+    {% elif section_idx > 0 %}
+        <a href="/exam_section/{{ section_idx - 1 }}/0" class="nav-btn secondary">
+            ← Sección Anterior
+        </a>
+    {% else %}
+        <a href="/exam" class="nav-btn secondary">
+            ← Reiniciar Examen
+        </a>
+    {% endif %}
+    
+    <div style="flex: 1; text-align: center;">
+        <strong>Sección {{ section_id }}: {{ section_info.title }}</strong>
+    </div>
+    
+    {% if page_idx + 1 < total_pages %}
+        <a href="/exam_section/{{ section_idx }}/{{ page_idx + 1 }}" class="nav-btn primary">
+            Siguiente Página →
+        </a>
+    {% elif section_idx + 1 < total_sections %}
+        <a href="/exam_section/{{ section_idx + 1 }}/0" class="nav-btn primary">
+            Siguiente Sección →
+        </a>
+    {% else %}
+        <a href="/exam_complete" class="nav-btn finish">
+            Terminar Examen
+        </a>
+    {% endif %}
+</div>
+
+<script>
+function submitQuestion(questionIndex) {
+    const questionContainer = document.querySelector(`[data-question-index="${questionIndex}"]`);
+    const feedbackDiv = document.getElementById(`feedback_${questionIndex}`);
+    const submitBtn = questionContainer.querySelector('.submit-btn');
+    
+    let userAnswer = '';
+    
+    // Get answer based on question type
+    const radioInput = questionContainer.querySelector('input[type="radio"]:checked');
+    if (radioInput) {
+        userAnswer = radioInput.value;
+    } else {
+        const textInput = questionContainer.querySelector('.answer-input');
+        if (textInput) {
+            userAnswer = textInput.value.trim();
+        }
+    }
+    
+    if (!userAnswer) {
+        alert('Por favor, proporciona una respuesta antes de verificar.');
+        return;
+    }
+    
+    // Disable submit button
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Verificando...';
+    
+    // Submit answer
+    fetch('/submit_question', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            question_index: questionIndex,
+            answer: userAnswer
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Show feedback
+        feedbackDiv.style.display = 'block';
+        
+        if (data.question_type === 'essay' || data.question_type === 'short_answer') {
+            feedbackDiv.className = 'feedback attempted';
+            feedbackDiv.innerHTML = `
+                <strong>✓ Respuesta registrada</strong><br>
+                ${data.explanation}
+            `;
+        } else if (data.is_correct) {
+            feedbackDiv.className = 'feedback correct';
+            feedbackDiv.innerHTML = `
+                <strong>✓ ¡Correcto!</strong><br>
+                ${data.explanation}
+            `;
+        } else {
+            feedbackDiv.className = 'feedback incorrect';
+            feedbackDiv.innerHTML = `
+                <strong>✗ Incorrecto</strong><br>
+                <strong>Respuesta correcta:</strong> ${data.correct_answer}<br>
+                ${data.explanation}
+            `;
+        }
+        
+        // Update stats
+        document.getElementById('answered-count').textContent = data.total_answered;
+        document.getElementById('current-score').textContent = data.total_score;
+        
+        // Re-enable button
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Verificar Respuesta';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error al verificar la respuesta. Inténtalo de nuevo.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Verificar Respuesta';
+    });
+}
+
+// Auto-save answers as user types (for essays and long answers)
+document.addEventListener('DOMContentLoaded', function() {
+    const textareas = document.querySelectorAll('.essay-textarea, .short-answer-input');
+    textareas.forEach(textarea => {
+        let saveTimeout;
+        textarea.addEventListener('input', function() {
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(() => {
+                // Auto-save could be implemented here if needed
+                console.log('Auto-saving answer for question', this.dataset.questionIndex);
+            }, 2000);
+        });
+    });
+});
+</script>
+{% endblock %}

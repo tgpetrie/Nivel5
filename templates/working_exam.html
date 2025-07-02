@@ -1,0 +1,430 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <h2 style="color: #ffffff; margin-bottom: 20px; text-align: center; font-weight: 600;">
+        🎯 Examen Funcional - UNAM Nivel 5
+    </h2>
+    
+    <div style="text-align: center; margin-bottom: 30px;">
+        <p style="font-size: 1.2em; color: #e0e0e0; margin-bottom: 20px; font-weight: 300;">
+            Versión interactiva completa del examen final
+        </p>
+    </div>
+
+    <div style="background: rgba(0, 0, 0, 0.3); padding: 30px; border-radius: 10px; margin: 20px 0; border: 1px solid rgba(255, 255, 255, 0.1);">
+        <h3 style="color: #ffffff; margin-bottom: 20px; text-align: center;">Estructura del Examen</h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 30px;">
+            <div style="background: rgba(206, 17, 38, 0.1); padding: 20px; border-radius: 8px; border: 1px solid rgba(206, 17, 38, 0.3);">
+                <h4 style="color: #ce1126; margin-bottom: 10px;">I. Gramática Objetiva</h4>
+                <p style="color: #e0e0e0; font-size: 0.9em;">30 reactivos • 25 puntos</p>
+                <p style="color: #b0b0b0; font-size: 0.8em;">Evaluación automática</p>
+            </div>
+            
+            <div style="background: rgba(0, 104, 71, 0.1); padding: 20px; border-radius: 8px; border: 1px solid rgba(0, 104, 71, 0.3);">
+                <h4 style="color: #006847; margin-bottom: 10px;">II. Transformaciones</h4>
+                <p style="color: #e0e0e0; font-size: 0.9em;">12 reactivos • 15 puntos</p>
+                <p style="color: #b0b0b0; font-size: 0.8em;">Evaluación automática</p>
+            </div>
+            
+            <div style="background: rgba(206, 17, 38, 0.1); padding: 20px; border-radius: 8px; border: 1px solid rgba(206, 17, 38, 0.3);">
+                <h4 style="color: #ce1126; margin-bottom: 10px;">III. Comprensión Lectora</h4>
+                <p style="color: #e0e0e0; font-size: 0.9em;">10 preguntas</p>
+                <p style="color: #b0b0b0; font-size: 0.8em;">Respuesta libre</p>
+            </div>
+            
+            <div style="background: rgba(0, 104, 71, 0.1); padding: 20px; border-radius: 8px; border: 1px solid rgba(0, 104, 71, 0.3);">
+                <h4 style="color: #006847; margin-bottom: 10px;">IV. Producción Escrita</h4>
+                <p style="color: #e0e0e0; font-size: 0.9em;">130-150 palabras</p>
+                <p style="color: #b0b0b0; font-size: 0.8em;">Respuesta libre</p>
+            </div>
+            
+            <div style="background: rgba(206, 17, 38, 0.1); padding: 20px; border-radius: 8px; border: 1px solid rgba(206, 17, 38, 0.3);">
+                <h4 style="color: #ce1126; margin-bottom: 10px;">V. Comprensión Auditiva</h4>
+                <p style="color: #e0e0e0; font-size: 0.9em;">5 preguntas</p>
+                <p style="color: #b0b0b0; font-size: 0.8em;">Audio del profesor</p>
+            </div>
+            
+            <div style="background: rgba(0, 104, 71, 0.1); padding: 20px; border-radius: 8px; border: 1px solid rgba(0, 104, 71, 0.3);">
+                <h4 style="color: #006847; margin-bottom: 10px;">VI. Situaciones</h4>
+                <p style="color: #e0e0e0; font-size: 0.9em;">6 situaciones</p>
+                <p style="color: #b0b0b0; font-size: 0.8em;">Respuestas comunicativas</p>
+            </div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h4 style="color: #ffffff; margin-bottom: 15px; text-align: center;">📋 Instrucciones</h4>
+            <ul style="color: #e0e0e0; text-align: left; max-width: 600px; margin: 0 auto;">
+                <li style="margin: 10px 0;">Las secciones I y II se califican automáticamente</li>
+                <li style="margin: 10px 0;">Las respuestas abiertas se guardan en archivo JSON</li>
+                <li style="margin: 10px 0;">El examen simula la estructura oficial UNAM</li>
+                <li style="margin: 10px 0;">Incluye vocabulario mexicano auténtico</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button onclick="startWorkingExam()" class="btn" style="font-size: 1.3em; padding: 18px 40px; background: linear-gradient(135deg, #ce1126, #006847); border: none; color: white; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(206, 17, 38, 0.4);">
+                🚀 Comenzar Examen Funcional
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="examContainer" style="display: none;">
+    <div class="card">
+        <div id="examContent">
+            <!-- Exam content will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<script>
+let currentSection = 1;
+let currentQuestion = 1;
+let examData = {};
+let userAnswers = {};
+
+// Section I questions
+const sectionI = [
+    {prompt: "He ___ (leer) tres artículos esta semana.", answer: "leído", type: "fill"},
+    {prompt: "Ricardo ___ (aumentar) mucho de peso últimamente.", answer: "ha aumentado", type: "fill"},
+    {prompt: "Ya ___ (cerrar‑ellos) la biblioteca cuando llegamos.", answer: "habían cerrado", type: "fill"},
+    {prompt: "Lo interesante ___ esta propuesta es su viabilidad.", options: {a: 'de', b: 'en', c: 'por', d: 'sobre'}, answer: 'a', type: "choice"},
+    {prompt: "No veo que los políticos ___ algo para cambiar las cosas.", answer: "hagan", type: "fill"},
+    {prompt: "Dudo que Roberto ___ temprano.", options: {a: 'llegue', b: 'llega', c: 'llegó'}, answer: 'a', type: "choice"},
+    {prompt: "Fernando quería que su hija ___ (estudiar) Derecho.", answer: "estudiara", type: "fill"},
+    {prompt: "Es importante que maestros y alumnos ___ a la junta.", answer: "asistan", type: "fill"},
+    {prompt: "Valeria me dijo que no ___ a venir a clase.", answer: "iba", type: "fill"},
+    {prompt: "Te sugerí que ___ (comprar) un coche.", answer: "compraras", type: "fill"},
+    {prompt: "A Alicia le gustaba que su abuela ___ (hacer) pozole rojo.", answer: "hiciera", type: "fill"},
+    {prompt: "Miguel es un empresario ___ trabaja en tecnología.", answer: "que", type: "fill"},
+    {prompt: "El Dr. Robles, ___ trabaja en genética, dará conferencia.", answer: "quien", type: "fill"},
+    {prompt: "Andrea es una persona ___ confío.", answer: "en quien", type: "fill"},
+    {prompt: "Avísame tan pronto como ___ (estar‑tú) listo.", answer: "estés", type: "fill"},
+    {prompt: "Para 2030, la universidad ya ___ (implementar) el programa.", answer: "habrá implementado", type: "fill"},
+    {prompt: "Si tengo tiempo, ___ (tomar‑yo) clases de francés.", answer: "tomaré", type: "fill"},
+    {prompt: "Si tuviera dinero, ___ (viajar‑yo) a Japón.", answer: "viajaría", type: "fill"},
+    {prompt: "Si hubieras estudiado medicina, ___ (ser‑tú) doctora.", answer: "serías", type: "fill"},
+    {prompt: "He ___ (abrir) la cuenta de correo dos veces hoy.", answer: "abierto", type: "fill"}
+];
+
+// Section II transformations
+const sectionII = [
+    {prompt: "Biden: «No visitaré el Zócalo el lunes». →", answer: "Biden dijo que no visitaría el Zócalo el lunes."},
+    {prompt: "Ya habían inaugurado el Tren Maya. (usar todavía no)", answer: "Todavía no habían inaugurado el Tren Maya."},
+    {prompt: "Si China reduce tarifas, México exportará más aguacate. (irreal)", answer: "Si China redujera tarifas, México exportaría más aguacate."},
+    {prompt: "Rodrigo es una persona. Yo confío en la persona. (relativo)", answer: "Rodrigo es una persona en la que confío."},
+    {prompt: "Es importante asistir a la junta. (sujeto explícito)", answer: "Es importante que maestros y alumnos asistan a la junta."},
+    {prompt: "Lo malo de vivir aquí es el ruido. (transformar a lo + adj + de)", answer: "Lo malo de vivir aquí es el ruido."},
+    {prompt: "Cuando termines la tarea, salimos. (pasado habitual)", answer: "Cuando terminabas la tarea, salíamos."},
+    {prompt: "Para 2027, el proyecto habrá concluido. (antefuturo → pluscuamperfecto pasado)", answer: "Para 2027, el proyecto ya había concluido."},
+    {prompt: "Si hubieras ido, lo habrías visto. (real)", answer: "Si vas, lo verás."},
+    {prompt: "Quería que sus alumnos estudiaran más. (presente)", answer: "Quiere que sus alumnos estudien más."},
+    {prompt: "A mí me encanta que vengas. (pretérito imperf. subj.)", answer: "A mí me encantaba que vinieras."},
+    {prompt: "Uso una app. La app corrige mi acento. (relativa explicativa)", answer: "La app, que corrige mi acento, la uso diario."}
+];
+
+function startWorkingExam() {
+    document.querySelector('.card').style.display = 'none';
+    document.getElementById('examContainer').style.display = 'block';
+    showSection1();
+}
+
+function showSection1() {
+    currentSection = 1;
+    currentQuestion = 1;
+    let html = `
+        <h2 style="color: #ffffff; text-align: center; margin-bottom: 30px;">
+            📝 Sección I: Gramática Objetiva (25 pts)
+        </h2>
+        <div style="background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 10px;">
+            <p style="color: #e0e0e0; text-align: center; margin-bottom: 20px;">
+                Completa los espacios o selecciona la opción correcta
+            </p>
+            <div id="section1Questions"></div>
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="checkSection1()" class="btn" style="background: linear-gradient(135deg, #ce1126, #006847); color: white; padding: 15px 30px; border: none; border-radius: 25px; cursor: pointer;">
+                    Verificar Respuestas
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.getElementById('examContent').innerHTML = html;
+    renderSection1Questions();
+}
+
+function renderSection1Questions() {
+    let html = '';
+    sectionI.forEach((q, idx) => {
+        html += `<div style="margin: 20px 0; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">`;
+        html += `<p style="color: #ffffff; margin-bottom: 10px;"><strong>${idx + 1}.</strong> ${q.prompt}</p>`;
+        
+        if (q.type === 'choice') {
+            Object.keys(q.options).forEach(key => {
+                html += `<label style="display: block; color: #e0e0e0; margin: 5px 0; cursor: pointer;">
+                    <input type="radio" name="q${idx}" value="${key}" style="margin-right: 8px;"> 
+                    ${key}) ${q.options[key]}
+                </label>`;
+            });
+        } else {
+            html += `<input type="text" id="q${idx}" placeholder="Escribe tu respuesta" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; background: rgba(255, 255, 255, 0.9); color: #000;">`;
+        }
+        html += `</div>`;
+    });
+    
+    document.getElementById('section1Questions').innerHTML = html;
+}
+
+function checkSection1() {
+    let score = 0;
+    let html = '';
+    
+    sectionI.forEach((q, idx) => {
+        const isCorrect = checkAnswer(idx, q);
+        if (isCorrect) score++;
+        
+        html += `<div style="margin: 20px 0; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px; border-left: 4px solid ${isCorrect ? '#4CAF50' : '#f44336'};">`;
+        html += `<p style="color: #ffffff; margin-bottom: 10px;"><strong>${idx + 1}.</strong> ${q.prompt}</p>`;
+        html += `<p style="color: ${isCorrect ? '#4CAF50' : '#f44336'}; margin: 5px 0;">
+            ${isCorrect ? '✅ Correcto' : `❌ Respuesta correcta: ${q.answer}`}
+        </p>`;
+        html += `</div>`;
+    });
+    
+    html += `
+        <div style="background: rgba(0, 0, 0, 0.5); padding: 20px; border-radius: 10px; text-align: center; margin-top: 30px;">
+            <h3 style="color: #ffffff; margin-bottom: 15px;">Puntuación Sección I</h3>
+            <p style="color: #e0e0e0; font-size: 1.2em;">${score}/${sectionI.length} respuestas correctas</p>
+            <button onclick="showSection2()" class="btn" style="background: linear-gradient(135deg, #006847, #ce1126); color: white; padding: 15px 30px; border: none; border-radius: 25px; cursor: pointer; margin-top: 15px;">
+                Continuar a Sección II
+            </button>
+        </div>
+    `;
+    
+    document.getElementById('section1Questions').innerHTML = html;
+}
+
+function checkAnswer(idx, question) {
+    if (question.type === 'choice') {
+        const selected = document.querySelector(`input[name="q${idx}"]:checked`);
+        return selected && selected.value === question.answer;
+    } else {
+        const userAnswer = document.getElementById(`q${idx}`).value.trim();
+        return normalizeAnswer(userAnswer) === normalizeAnswer(question.answer);
+    }
+}
+
+function normalizeAnswer(answer) {
+    return answer.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+}
+
+function showSection2() {
+    let html = `
+        <h2 style="color: #ffffff; text-align: center; margin-bottom: 30px;">
+            🔄 Sección II: Transformaciones (15 pts)
+        </h2>
+        <div style="background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 10px;">
+            <p style="color: #e0e0e0; text-align: center; margin-bottom: 20px;">
+                Reescribe o transforma según se indica
+            </p>
+            <div id="section2Questions"></div>
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="checkSection2()" class="btn" style="background: linear-gradient(135deg, #ce1126, #006847); color: white; padding: 15px 30px; border: none; border-radius: 25px; cursor: pointer;">
+                    Verificar Transformaciones
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.getElementById('examContent').innerHTML = html;
+    renderSection2Questions();
+}
+
+function renderSection2Questions() {
+    let html = '';
+    sectionII.forEach((q, idx) => {
+        html += `<div style="margin: 20px 0; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">`;
+        html += `<p style="color: #ffffff; margin-bottom: 10px;"><strong>${idx + 1}.</strong> ${q.prompt}</p>`;
+        html += `<textarea id="trans${idx}" placeholder="Escribe la transformación" style="width: 100%; height: 60px; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; background: rgba(255, 255, 255, 0.9); color: #000; resize: vertical;"></textarea>`;
+        html += `</div>`;
+    });
+    
+    document.getElementById('section2Questions').innerHTML = html;
+}
+
+function checkSection2() {
+    let score = 0;
+    let html = '';
+    
+    sectionII.forEach((q, idx) => {
+        const userAnswer = document.getElementById(`trans${idx}`).value.trim();
+        const isCorrect = normalizeAnswer(userAnswer) === normalizeAnswer(q.answer);
+        if (isCorrect) score++;
+        
+        html += `<div style="margin: 20px 0; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px; border-left: 4px solid ${isCorrect ? '#4CAF50' : '#f44336'};">`;
+        html += `<p style="color: #ffffff; margin-bottom: 10px;"><strong>${idx + 1}.</strong> ${q.prompt}</p>`;
+        html += `<p style="color: #e0e0e0; margin: 5px 0;"><strong>Tu respuesta:</strong> ${userAnswer}</p>`;
+        html += `<p style="color: ${isCorrect ? '#4CAF50' : '#f44336'}; margin: 5px 0;">
+            ${isCorrect ? '✅ Correcto' : `❌ Respuesta modelo: ${q.answer}`}
+        </p>`;
+        html += `</div>`;
+    });
+    
+    html += `
+        <div style="background: rgba(0, 0, 0, 0.5); padding: 20px; border-radius: 10px; text-align: center; margin-top: 30px;">
+            <h3 style="color: #ffffff; margin-bottom: 15px;">Puntuación Sección II</h3>
+            <p style="color: #e0e0e0; font-size: 1.2em;">${score}/${sectionII.length} transformaciones correctas</p>
+            <button onclick="showOpenSections()" class="btn" style="background: linear-gradient(135deg, #006847, #ce1126); color: white; padding: 15px 30px; border: none; border-radius: 25px; cursor: pointer; margin-top: 15px;">
+                Continuar a Secciones Abiertas
+            </button>
+        </div>
+    `;
+    
+    document.getElementById('section2Questions').innerHTML = html;
+}
+
+function showOpenSections() {
+    let html = `
+        <h2 style="color: #ffffff; text-align: center; margin-bottom: 30px;">
+            📖 Secciones III-VI: Respuestas Abiertas
+        </h2>
+        <div style="background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 10px;">
+            
+            <!-- Section III -->
+            <div style="margin-bottom: 30px; padding: 20px; background: rgba(206, 17, 38, 0.1); border-radius: 8px;">
+                <h3 style="color: #ce1126; margin-bottom: 15px;">III. Comprensión Lectora</h3>
+                <p style="color: #e0e0e0; margin-bottom: 15px;">Lee el texto en tu cuadernillo y responde las preguntas:</p>
+                <div id="readingQuestions"></div>
+            </div>
+            
+            <!-- Section IV -->
+            <div style="margin-bottom: 30px; padding: 20px; background: rgba(0, 104, 71, 0.1); border-radius: 8px;">
+                <h3 style="color: #006847; margin-bottom: 15px;">IV. Producción Escrita</h3>
+                <p style="color: #e0e0e0; margin-bottom: 15px;">Redacta un texto de 130-150 palabras:</p>
+                <textarea id="essay" placeholder="Escribe tu texto aquí..." style="width: 100%; height: 120px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; background: rgba(255, 255, 255, 0.9); color: #000; resize: vertical;"></textarea>
+            </div>
+            
+            <!-- Section V -->
+            <div style="margin-bottom: 30px; padding: 20px; background: rgba(206, 17, 38, 0.1); border-radius: 8px;">
+                <h3 style="color: #ce1126; margin-bottom: 15px;">V. Comprensión Auditiva</h3>
+                <p style="color: #e0e0e0; margin-bottom: 15px;">Escucha el audio y responde:</p>
+                <div id="audioQuestions"></div>
+            </div>
+            
+            <!-- Section VI -->
+            <div style="margin-bottom: 30px; padding: 20px; background: rgba(0, 104, 71, 0.1); border-radius: 8px;">
+                <h3 style="color: #006847; margin-bottom: 15px;">VI. Situaciones Comunicativas</h3>
+                <div id="situationalQuestions"></div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="finishExam()" class="btn" style="background: linear-gradient(135deg, #ce1126, #006847); color: white; padding: 15px 30px; border: none; border-radius: 25px; cursor: pointer;">
+                    🎉 Finalizar Examen
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.getElementById('examContent').innerHTML = html;
+    renderOpenQuestions();
+}
+
+function renderOpenQuestions() {
+    // Reading questions
+    let readingHtml = '';
+    for (let i = 1; i <= 10; i++) {
+        readingHtml += `<div style="margin: 10px 0;">
+            <label style="color: #e0e0e0; display: block; margin-bottom: 5px;">Pregunta ${i}:</label>
+            <input type="text" id="reading${i}" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; background: rgba(255, 255, 255, 0.9); color: #000;">
+        </div>`;
+    }
+    document.getElementById('readingQuestions').innerHTML = readingHtml;
+    
+    // Audio questions
+    let audioHtml = '';
+    for (let i = 1; i <= 5; i++) {
+        audioHtml += `<div style="margin: 10px 0;">
+            <label style="color: #e0e0e0; display: block; margin-bottom: 5px;">Audio respuesta ${i}:</label>
+            <input type="text" id="audio${i}" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; background: rgba(255, 255, 255, 0.9); color: #000;">
+        </div>`;
+    }
+    document.getElementById('audioQuestions').innerHTML = audioHtml;
+    
+    // Situational questions
+    const situations = [
+        "Sugiere a tu amigo gringo que pruebe mezcal",
+        "Expresa emoción (impf subj.) sobre balalaikas",
+        "Frase con tan pronto como + subj.",
+        "Oración con relativo y confiar en",
+        "Oración especificativa sobre una app",
+        "Lo + adj + de sobre tacos"
+    ];
+    
+    let sitHtml = '';
+    situations.forEach((situation, idx) => {
+        sitHtml += `<div style="margin: 15px 0;">
+            <label style="color: #e0e0e0; display: block; margin-bottom: 5px;">${idx + 1}. ${situation}:</label>
+            <input type="text" id="situation${idx}" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; background: rgba(255, 255, 255, 0.9); color: #000;">
+        </div>`;
+    });
+    document.getElementById('situationalQuestions').innerHTML = sitHtml;
+}
+
+function finishExam() {
+    // Collect all open responses
+    let openResponses = {};
+    
+    // Reading responses
+    for (let i = 1; i <= 10; i++) {
+        openResponses[`III_${i}`] = document.getElementById(`reading${i}`).value;
+    }
+    
+    // Essay
+    openResponses['IV_essay'] = document.getElementById('essay').value;
+    
+    // Audio responses
+    for (let i = 1; i <= 5; i++) {
+        openResponses[`V_${i}`] = document.getElementById(`audio${i}`).value;
+    }
+    
+    // Situational responses
+    for (let i = 0; i < 6; i++) {
+        openResponses[`VI_${i + 1}`] = document.getElementById(`situation${i}`).value;
+    }
+    
+    // Show completion message
+    let html = `
+        <div style="text-align: center; padding: 40px;">
+            <h2 style="color: #4CAF50; margin-bottom: 30px;">🎉 ¡Examen Completado!</h2>
+            <div style="background: rgba(0, 0, 0, 0.5); padding: 30px; border-radius: 15px; max-width: 600px; margin: 0 auto;">
+                <h3 style="color: #ffffff; margin-bottom: 20px;">Resumen del Examen</h3>
+                <p style="color: #e0e0e0; margin: 10px 0;">✅ Sección I: Gramática Objetiva - Completada</p>
+                <p style="color: #e0e0e0; margin: 10px 0;">✅ Sección II: Transformaciones - Completada</p>
+                <p style="color: #e0e0e0; margin: 10px 0;">✅ Secciones III-VI: Respuestas Abiertas - Guardadas</p>
+                
+                <div style="margin-top: 30px; padding: 20px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
+                    <p style="color: #ffffff; font-weight: bold;">Respuestas abiertas guardadas para revisión del profesor</p>
+                    <p style="color: #b0b0b0; font-size: 0.9em;">Las secciones I y II incluyen retroalimentación automática</p>
+                </div>
+                
+                <button onclick="location.reload()" class="btn" style="background: linear-gradient(135deg, #006847, #ce1126); color: white; padding: 15px 30px; border: none; border-radius: 25px; cursor: pointer; margin-top: 20px;">
+                    🔄 Tomar Examen Nuevamente
+                </button>
+                
+                <a href="/" class="btn" style="background: linear-gradient(135deg, #ce1126, #006847); color: white; padding: 15px 30px; border: none; border-radius: 25px; text-decoration: none; display: inline-block; margin: 20px 10px;">
+                    🏠 Volver al Inicio
+                </a>
+            </div>
+        </div>
+    `;
+    
+    document.getElementById('examContent').innerHTML = html;
+    
+    // Log responses to console (in real app, would send to server)
+    console.log('Open Responses:', openResponses);
+}
+</script>
+
+{% endblock %}

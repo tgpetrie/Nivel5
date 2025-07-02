@@ -907,30 +907,9 @@ generator = WebQuestionGenerator()
 def index():
     return render_template('index.html')
 
-@app.route('/audio')
-def audio():
-    """Show audio examples page"""
-    return render_template('audio.html')
-
 @app.route('/exam')
 def exam():
-    """Show exam overview page with table of contents"""
-    # Use the EXAM_SECTIONS structure directly for overview
-    section_info = []
-    for section_key, section_data in EXAM_SECTIONS.items():
-        section_info.append({
-            'section_number': section_key,
-            'section_name': section_data['title'],
-            'question_count': section_data['total_questions'],
-            'description': section_data['description'],
-            'points': section_data['points']
-        })
-    
-    return render_template('exam_overview.html', sections=section_info)
-
-@app.route('/start_exam')
-def start_exam():
-    """Initialize and start the actual exam"""
+    """Start a new sectioned exam"""
     # Generate full exam with all sections
     exam_sections = generator.generate_full_exam()
     
@@ -1309,11 +1288,6 @@ def get_concept_explanation(concept_name):
         'situaciones_comunicativas': 'Adapta tu respuesta al contexto y usa estructuras apropiadas.'
     }
     return explanations.get(concept_name, 'Revisa las reglas gramaticales específicas.')
-
-@app.route('/examen_funcional')
-def working_exam():
-    """Route for the working exam based on CLAVE_UNAM_Final.md"""
-    return render_template('working_exam.html')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5002)
